@@ -3,17 +3,18 @@ package com.webshop.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webshop.model.CustomerOrder;
 import com.webshop.repository.CustomerOrderRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class CustomerOrderService {
 
-	@Autowired
-	private CustomerOrderRepository customerOrderRepo;
+	private final CustomerOrderRepository customerOrderRepo;
 	
 	
 	public List<CustomerOrder> getAllCustomerOrders() {

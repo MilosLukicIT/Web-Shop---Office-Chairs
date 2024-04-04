@@ -3,17 +3,19 @@ package com.webshop.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webshop.model.Article;
 import com.webshop.repository.ArticleRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class ArticleService {
 
-	@Autowired
-	private ArticleRepository articleRepo;
+
+	private final ArticleRepository articleRepo;
 	
 	public List<Article> getAllArticles() {
 		return articleRepo.findAll();
