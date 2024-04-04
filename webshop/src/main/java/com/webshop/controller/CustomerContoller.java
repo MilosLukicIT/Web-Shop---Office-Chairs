@@ -1,7 +1,6 @@
 package com.webshop.controller;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,19 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webshop.model.Customer;
-import com.webshop.model.dto.CustomerDto;
+import com.webshop.model.dto.CustomerCreationDto;
 import com.webshop.service.CustomerService;
+
+import lombok.RequiredArgsConstructor;
 
 @CrossOrigin
 @RestController
 @RequestMapping("customer")
+@RequiredArgsConstructor
 public class CustomerContoller {
 	
-	@Autowired
-	private CustomerService customerService;
+	private final CustomerService customerService;
 	
-	@Autowired
-	private ModelMapper mapper;
+	private final ModelMapper mapper;
 	
 	@GetMapping
 	public ResponseEntity<?> getAllCustomer() {
@@ -43,7 +43,7 @@ public class CustomerContoller {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> createCustomer(@RequestBody CustomerDto customer) {
+	public ResponseEntity<?> createCustomer(@RequestBody CustomerCreationDto customer) {
 		Customer customerModel = mapper.map(customer, Customer.class) ;
 		return ResponseEntity.ok(customerService.addCustomer(customerModel));
 	}

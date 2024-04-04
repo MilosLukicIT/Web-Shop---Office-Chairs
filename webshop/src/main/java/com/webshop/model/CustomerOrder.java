@@ -1,6 +1,5 @@
 package com.webshop.model;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -27,12 +26,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CustomerOrder implements Serializable {
+public class CustomerOrder {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@UuidGenerator

@@ -1,6 +1,5 @@
 package com.webshop.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -23,13 +22,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ArticleBrand implements Serializable {
+public class ArticleBrand {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@UuidGenerator
 	private String brandId;

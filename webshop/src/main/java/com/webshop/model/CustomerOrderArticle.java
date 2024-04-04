@@ -1,6 +1,6 @@
 package com.webshop.model;
 
-import java.io.Serializable;
+
 
 import org.hibernate.annotations.UuidGenerator;
 
@@ -21,12 +21,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerOrderArticle implements Serializable {
+public class CustomerOrderArticle {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@UuidGenerator
