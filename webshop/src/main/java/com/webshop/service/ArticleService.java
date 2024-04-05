@@ -25,13 +25,14 @@ public class ArticleService {
 		return articleRepo.findById(articleId);
 	}
 	
-	public Article addArticle(Article article) {
+	public Article saveArticle(Article article) {
 		return articleRepo.save(article);
 	}
 	
 	public void deleteById(String articleId) {
 		articleRepo.deleteById(articleId);
 	}
+	
 	
 	public boolean existsById(String articleId) {
 		if(getArticlerById(articleId).isPresent()) {

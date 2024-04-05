@@ -3,17 +3,14 @@ package com.webshop.model.dto.article;
 import com.webshop.model.ArticleBrand;
 import com.webshop.model.ArticleType;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class ArticleCreationDto {
-
+public class ArticleUpdateDto {
+	
+	private String articleId;
 	private String nameOfArticle;
 	private Float priceOfArticle;
 	private String manufacturerOfArticle;
@@ -29,4 +26,5 @@ public class ArticleCreationDto {
 	
 	private ArticleBrand articleBrand;
 	private ArticleType articleType;
+
 }

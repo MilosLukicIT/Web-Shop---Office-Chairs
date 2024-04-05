@@ -4,6 +4,7 @@ package com.webshop.model;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -27,14 +28,15 @@ public class CustomerOrderArticle {
 	@Id
 	@UuidGenerator
 	private String orderArticleId;
+	@Column(nullable = false, unique = false)
 	private int amountOfArticle;
 	
 	@ManyToOne
-	@JoinColumn(name = "customerOrder")
-	private CustomerOrder customerOrder;
+	@JoinColumn(name = "orderId")
+	private CustomerOrder orderId;
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "article")
-	private Article article;
+	@JoinColumn(name = "articleId")
+	private Article articleId;
 }

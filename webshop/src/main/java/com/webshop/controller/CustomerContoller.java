@@ -43,7 +43,7 @@ public class CustomerContoller {
 		return ResponseEntity.ok(customerDto);
 	}
 	
-	@GetMapping
+	@GetMapping("/{customerId}")
 	public ResponseEntity<?> getCustomerById(@PathVariable String customerId) {
 		
 		if(customerService.existsById(customerId)) {

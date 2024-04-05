@@ -8,6 +8,7 @@ import org.hibernate.annotations.UuidGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -32,7 +33,9 @@ public class CustomerOrder {
 	@Id
 	@UuidGenerator
 	private String orderId;
+	@Column(nullable = false, unique = false)
 	private Date dateOfCreation;
+	@Column(unique = false, columnDefinition = "NUMERIC")
 	private Float totalBill;
 	private Boolean payed;
 	private Date timeOfPayment;
@@ -41,14 +44,14 @@ public class CustomerOrder {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "customer")
+	@JoinColumn(name = "customerId")
 	private Customer customer;
 	
 	@ManyToOne
-	@JoinColumn(name = "employee")
+	@JoinColumn(name = "employeeId")
 	private Employee employee;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "customerOrder", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "orderId", cascade = CascadeType.REMOVE)
 	List<CustomerOrderArticle> customerOrderArticle;
 }

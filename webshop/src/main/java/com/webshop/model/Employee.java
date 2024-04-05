@@ -7,6 +7,7 @@ import org.hibernate.annotations.UuidGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -27,13 +28,21 @@ public class Employee {
 	@Id
 	@UuidGenerator
 	private String employeeId;
+	@Column(length = 30, nullable = false, unique = false)
 	private String name;
+	@Column(length = 30, nullable = false, unique = false)
 	private String surname;
+	@Column(length = 30, nullable = false, unique = false)
 	private String role;
+	@Column(length = 30, nullable = false, unique = false)
 	private String adress;
+	@Column(length = 30, nullable = false, unique = true)
 	private String username;
+	@Column(length = 30, nullable = false, unique = true)
 	private String email;
+	@Column(length = 30, nullable = false, unique = false)
 	private String password;
+	@Column(length = 30, nullable = false, unique = false)
 	private String contactNumber;
 	
 	
