@@ -3,6 +3,9 @@ package com.webshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.webshop.model.Article;
@@ -17,8 +20,11 @@ public class ArticleService {
 
 	private final ArticleRepository articleRepo;
 	
-	public List<Article> getAllArticles() {
-		return articleRepo.findAll();
+	public List<Article> getAllArticles(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Article> articles = articleRepo.findAll(pageable);
+		
+		return articles.getContent();
 	}
 	
 	public Optional<Article> getArticlerById(String articleId){

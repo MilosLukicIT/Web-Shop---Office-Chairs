@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webshop.model.Article;
@@ -36,12 +37,11 @@ public class ArticleController {
 	private final ModelMapper mapper;
 	
 	
-	
 	@GetMapping
-	public ResponseEntity<?> getAllArticle() {
+	public ResponseEntity<?> getAllArticle(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "5")int size) {
 		
 
-		List<Article> articles = articleService.getAllArticles();
+		List<Article> articles = articleService.getAllArticles(page, size);
 		
 		if (!articles.isEmpty()) {
 			List<ArticleViewDto> articleDto = articles.stream()
