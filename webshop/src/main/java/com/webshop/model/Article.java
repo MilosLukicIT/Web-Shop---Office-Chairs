@@ -67,7 +67,7 @@ public class Article {
 	private ArticleType articleType;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "articleId")
+	@OneToMany(mappedBy = "article")
 	List<CustomerOrderArticle> customerOrderArticle;
 
 	

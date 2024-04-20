@@ -21,7 +21,7 @@ public class CustomerOrderService {
 		return customerOrderRepo.findAll();
 	}
 	
-	public Optional<CustomerOrder> getCustomerById(String customerOrderId){
+	public Optional<CustomerOrder> getCustomerOrderById(String customerOrderId){
 		return customerOrderRepo.findById(customerOrderId);
 	}
 	
@@ -34,7 +34,7 @@ public class CustomerOrderService {
 	}
 	
 	public boolean existsById(String customerOrderId) {
-		if(getCustomerById(customerOrderId).isPresent()) {
+		if(getCustomerOrderById(customerOrderId).isPresent()) {
 			return true;
 		} else
 			return false;

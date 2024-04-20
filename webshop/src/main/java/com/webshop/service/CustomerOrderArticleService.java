@@ -23,11 +23,11 @@ public class CustomerOrderArticleService {
 		return customerOrderArticleRepo.findAll();
 	}
 	
-	public Optional<CustomerOrderArticle> getcustomerOrderArticlerById(String customerOrderArticleId){
+	public Optional<CustomerOrderArticle> getCustomerOrderArticleById(String customerOrderArticleId){
 		return customerOrderArticleRepo.findById(customerOrderArticleId);
 	}
 	
-	public CustomerOrderArticle addcustomerOrderArticle(CustomerOrderArticle customerOrderArticle) {
+	public CustomerOrderArticle addCustomerOrderArticle(CustomerOrderArticle customerOrderArticle) {
 		return customerOrderArticleRepo.save(customerOrderArticle);
 	}
 	
@@ -36,7 +36,7 @@ public class CustomerOrderArticleService {
 	}
 	
 	public boolean existsById(String customerOrderArticleId) {
-		if(getcustomerOrderArticlerById(customerOrderArticleId).isPresent()) {
+		if(getCustomerOrderArticleById(customerOrderArticleId).isPresent()) {
 			return true;
 		} else
 			return false;

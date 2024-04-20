@@ -33,10 +33,10 @@ public class CustomerOrderArticle {
 	
 	@ManyToOne
 	@JoinColumn(name = "orderId")
-	private CustomerOrder orderId;
+	private CustomerOrder customerOrderArticle;
 	
 	
 	@ManyToOne
 	@JoinColumn(name = "articleId")
-	private Article articleId;
+	private Article article;
 }

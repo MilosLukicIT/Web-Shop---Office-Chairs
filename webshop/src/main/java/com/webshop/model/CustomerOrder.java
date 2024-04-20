@@ -52,6 +52,6 @@ public class CustomerOrder {
 	private Employee employee;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "orderId", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "customerOrderArticle", cascade = CascadeType.REMOVE)
 	List<CustomerOrderArticle> customerOrderArticle;
 }

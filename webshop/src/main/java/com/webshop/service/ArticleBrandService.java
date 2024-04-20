@@ -16,15 +16,16 @@ public class ArticleBrandService {
 
 	private final ArticleBrandRepository articleBrandRepo;
 	
-	public List<ArticleBrand> getAllarticleBrands() {
+	public List<ArticleBrand> getAllArticleBrands() {
+		
 		return articleBrandRepo.findAll();
 	}
 	
-	public Optional<ArticleBrand> getarticleBrandById(String articleBrandId){
+	public Optional<ArticleBrand> getArticleBrandById(String articleBrandId){
 		return articleBrandRepo.findById(articleBrandId);
 	}
 	
-	public ArticleBrand addarticleBrand(ArticleBrand articleBrand) {
+	public ArticleBrand saveArticleBrand(ArticleBrand articleBrand) {
 		return articleBrandRepo.save(articleBrand);
 	}
 	
@@ -32,8 +33,14 @@ public class ArticleBrandService {
 		articleBrandRepo.deleteById(articleBrandId);
 	}
 	
+	public Optional<List<ArticleBrand>> getArticleBrandByName(String nameofBrand) {
+		
+		Optional<List<ArticleBrand>> brands = Optional.of(articleBrandRepo.findByNameOfBrandContainingIgnoreCase(nameofBrand));
+		return brands;
+	}
+	
 	public boolean existsById(String articleBrandId) {
-		if(getarticleBrandById(articleBrandId).isPresent()) {
+		if(getArticleBrandById(articleBrandId).isPresent()) {
 			return true;
 		} else
 			return false;

@@ -19,15 +19,16 @@ public class ArticleTypeService {
 	
 	
 	
-	public List<ArticleType> getAllarticleTypes() {
+	public List<ArticleType> getAllArticleTypes() {
+		
 		return articleTypeRepo.findAll();
 	}
 	
-	public Optional<ArticleType> getarticleTypeById(String articleTypeId){
+	public Optional<ArticleType> getArticleTypeById(String articleTypeId){
 		return articleTypeRepo.findById(articleTypeId);
 	}
 	
-	public ArticleType addarticleType(ArticleType articleType) {
+	public ArticleType saveArticleType(ArticleType articleType) {
 		return articleTypeRepo.save(articleType);
 	}
 	
@@ -36,7 +37,7 @@ public class ArticleTypeService {
 	}
 	
 	public boolean existsById(String articleTypeId) {
-		if(getarticleTypeById(articleTypeId).isPresent()) {
+		if(getArticleTypeById(articleTypeId).isPresent()) {
 			return true;
 		} else
 			return false;
