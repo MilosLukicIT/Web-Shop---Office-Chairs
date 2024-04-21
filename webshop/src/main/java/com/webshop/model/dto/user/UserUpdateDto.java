@@ -1,5 +1,6 @@
 package com.webshop.model.dto.user;
 
+import org.springframework.lang.Nullable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class UserUpdateDto {
 	private String username;
 	private String role;
 	private String email;
+	@Nullable
 	private String password;
 	private String contactNumber;
 }
