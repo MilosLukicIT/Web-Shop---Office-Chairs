@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.webshop.model.Article;
@@ -21,7 +23,7 @@ public class ArticleService {
 	private final ArticleRepository articleRepo;
 	
 	public List<Article> getAllArticles(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
+		Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "nameOfArticle"));
 		Page<Article> articles = articleRepo.findAll(pageable);
 		
 		return articles.getContent();
