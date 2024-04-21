@@ -45,11 +45,11 @@ public class CustomerOrder {
 	
 	@ManyToOne
 	@JoinColumn(name = "customerId")
-	private Customer customer;
+	private User customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "employeeId")
-	private Employee employee;
+	private User employee;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "customerOrderArticle", cascade = CascadeType.REMOVE)

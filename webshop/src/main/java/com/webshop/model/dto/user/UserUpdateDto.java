@@ -1,4 +1,4 @@
-package com.webshop.model.dto.customer;
+package com.webshop.model.dto.user;
 
 
 import lombok.AllArgsConstructor;
@@ -11,12 +11,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerCreationDto {
+public class UserUpdateDto {
 	
+	private String userId;
 	private String name;
 	private String surname;
 	private String adress;
 	private String username;
+	private String role;
 	private String email;
 	private String password;
 	private String contactNumber;

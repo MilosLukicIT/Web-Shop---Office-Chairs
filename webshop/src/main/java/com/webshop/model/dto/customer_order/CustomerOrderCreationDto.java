@@ -2,8 +2,7 @@ package com.webshop.model.dto.customer_order;
 
 import java.sql.Date;
 
-import com.webshop.model.Customer;
-import com.webshop.model.Employee;
+import com.webshop.model.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +18,6 @@ public class CustomerOrderCreationDto {
 	private Boolean sent;
 	private Date timeWhenSent;
 	
-	private Customer customer;
-	private Employee employee;
+	private User customer;
+	private User employee;
 }

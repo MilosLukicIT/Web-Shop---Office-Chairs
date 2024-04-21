@@ -11,11 +11,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+
 
 @Getter
 @Setter
@@ -23,31 +26,35 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Employee {
+@Table(name = "Users")
+public class User{
+
 	
 	@Id
 	@UuidGenerator
-	private String employeeId;
+	private String userId;
 	@Column(length = 30, nullable = false, unique = false)
 	private String name;
 	@Column(length = 30, nullable = false, unique = false)
 	private String surname;
 	@Column(length = 30, nullable = false, unique = false)
-	private String role;
-	@Column(length = 30, nullable = false, unique = false)
 	private String adress;
+	@Column(length = 30, unique = false, nullable = true)
+	private String role;
 	@Column(length = 30, nullable = false, unique = true)
 	private String username;
 	@Column(length = 30, nullable = false, unique = true)
 	private String email;
-	@Column(length = 30, nullable = false, unique = false)
+	@Column(nullable = false, unique = false)
 	private String password;
 	@Column(length = 30, nullable = false, unique = false)
 	private String contactNumber;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+	List<CustomerOrder> customerOrders;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "employee", cascade =  CascadeType.REMOVE)
-	List<CustomerOrder> customerOrders;
-
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
+	List<CustomerOrder> employeeOrders;
 }

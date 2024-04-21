@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class ArticleController {
 	
 	private final ArticleService articleService;
 	private final ModelMapper mapper;
-	
+
 	
 	@GetMapping
 	public ResponseEntity<?> getAllArticle(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "5")int size) {
@@ -47,6 +48,8 @@ public class ArticleController {
 			List<ArticleViewDto> articleDto = articles.stream()
 					.map(article -> mapper.map(article, ArticleViewDto.class))
 					.collect(Collectors.toList());
+			
+			
 			
 			return ResponseEntity.ok(articleDto);
 		} 
@@ -68,19 +71,19 @@ public class ArticleController {
 		}
 	}
 	
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'WORKER')")
 	@PostMapping
 	public ResponseEntity<?> createArticle(@RequestBody ArticleCreationDto article){
 		
 		this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		
 		Article articleModel = mapper.map(article, Article.class);
-		System.out.println(articleModel.getArticleBrand());
-		System.out.println(articleModel.getArticleType());
 		
 		ArticleViewDto createdArticleDto = mapper.map(articleService.saveArticle(articleModel), ArticleViewDto.class);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdArticleDto);
 	}
 	
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'WORKER')")
 	@DeleteMapping("/{articleId}")
 	public ResponseEntity<?> deleteArticle(@PathVariable String articleId) {
 		
@@ -92,7 +95,7 @@ public class ArticleController {
 		}
 	}
 	
-	
+	@PreAuthorize("hasAnyAuthority('ADMIN', 'WORKER')")
 	@PutMapping
 	public ResponseEntity<?> updateArticle(@RequestBody ArticleUpdateDto article){
 		
