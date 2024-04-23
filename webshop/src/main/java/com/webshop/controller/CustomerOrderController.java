@@ -1,6 +1,7 @@
 package com.webshop.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webshop.model.CustomerOrder;
+import com.webshop.model.User;
 import com.webshop.model.dto.customer_order.CustomerOrderCreationDto;
 import com.webshop.model.dto.customer_order.CustomerOrderUpdateDto;
 import com.webshop.model.dto.customer_order.CustomerOrderViewDto;
 import com.webshop.service.CustomerOrderService;
+import com.webshop.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +37,7 @@ public class CustomerOrderController {
 
 	private final ModelMapper mapper;
 	private final CustomerOrderService customerOrderService;
+	private final UserService userService;
 	
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'WORKER')")
 	@GetMapping
@@ -66,6 +70,26 @@ public class CustomerOrderController {
 		{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity doesn't exist");
 		}
+	}
+	
+	@GetMapping("/customer/{customerId}")
+	public ResponseEntity<?> getCustomerOrderByUser(@PathVariable String customerId) {
+		
+		Optional<User> user = userService.getUserById(customerId);
+		if(!user.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User doesn't exist!");
+		}
+		this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+		
+		List<CustomerOrder> customerOrders = customerOrderService.getCustomerOrderByCustomer(user.get());
+		if (!customerOrders.isEmpty()) {
+			List<CustomerOrderViewDto> customerOrderDto = customerOrders.stream()
+					.map(customerOrder -> mapper.map(customerOrder, CustomerOrderViewDto.class))
+					.collect(Collectors.toList());
+			
+			return ResponseEntity.ok(customerOrderDto);
+		} 
+		else return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No orders in the db");
 	}
 	
 	@PostMapping

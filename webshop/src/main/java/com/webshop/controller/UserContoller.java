@@ -51,7 +51,7 @@ public class UserContoller {
 		return ResponseEntity.ok(userDto);
 	}
 	
-	@GetMapping("/{customerId}")
+	@GetMapping("/{userId}")
 	public ResponseEntity<?> getCustomerById(@PathVariable String userId) {
 		
 		if(userService.existsById(userId)) {
@@ -106,7 +106,17 @@ public class UserContoller {
 			
 			this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 			User updateUser = mapper.map(userService.getUserById(user.getUserId()), User.class);
-			mapper.map(user, updateUser);
+//			mapper.map(user, updateUser);
+			
+			updateUser.setName(user.getName());
+			updateUser.setAdress(user.getAdress());
+			updateUser.setContactNumber(user.getContactNumber());
+			updateUser.setEmail(user.getEmail());
+			updateUser.setSurname(user.getSurname());
+			updateUser.setUsername(user.getUsername());
+			updateUser.setRole(user.getRole());
+			
+			//Mapirati na view DTOs
 			userService.addUser(updateUser);
 			
 			return ResponseEntity.ok(updateUser);

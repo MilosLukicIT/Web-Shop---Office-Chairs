@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.webshop.model.CustomerOrder;
+import com.webshop.model.User;
 import com.webshop.repository.CustomerOrderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,10 @@ public class CustomerOrderService {
 			return true;
 		} else
 			return false;
+	}
+	
+	public List<CustomerOrder> getCustomerOrderByCustomer(User user) {
+		
+		return customerOrderRepo.findByCustomer(user);
 	}
 }

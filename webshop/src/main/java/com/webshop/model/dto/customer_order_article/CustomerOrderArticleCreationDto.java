@@ -13,7 +13,7 @@ public class CustomerOrderArticleCreationDto {
 	
 	private int amountOfArticle;
 	
-	private CustomerOrder orderId;
+	private CustomerOrder customerOrderArticle;
 	
-	private Article articleId;
+	private Article article;
 }

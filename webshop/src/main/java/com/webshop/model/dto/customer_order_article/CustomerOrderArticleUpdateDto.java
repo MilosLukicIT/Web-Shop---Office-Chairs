@@ -13,7 +13,7 @@ public class CustomerOrderArticleUpdateDto {
 	private String orderArticleId;
 	private int amountOfArticle;
 	
-	private CustomerOrder orderId;
+	private CustomerOrder customerOrderArticle;
 	
-	private Article articleId;
+	private Article article;
 }

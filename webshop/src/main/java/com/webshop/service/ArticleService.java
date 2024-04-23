@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.webshop.model.Article;
+import com.webshop.model.ArticleBrand;
 import com.webshop.repository.ArticleRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,18 @@ public class ArticleService {
 		Page<Article> articles = articleRepo.findAll(pageable);
 		
 		return articles.getContent();
+	}
+	
+	public List<Article> getArticlesByName(String nameOfArticle) {
+		List<Article> articles = articleRepo.findByNameOfArticle(nameOfArticle);
+		
+		return articles;
+	}
+	
+	public List<Article> getArticlesByBrand(ArticleBrand articleBrand) {
+		List<Article> articles = articleRepo.findByArticleBrand(articleBrand);
+		
+		return articles;
 	}
 	
 	public Optional<Article> getArticlerById(String articleId){

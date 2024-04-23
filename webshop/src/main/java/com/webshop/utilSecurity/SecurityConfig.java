@@ -39,12 +39,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
        http.csrf((csrf) -> csrf.disable())
        .authorizeHttpRequests(req -> req
-    		   .anyRequest().permitAll()
     		   .requestMatchers(HttpMethod.GET, "/user/{userId}").authenticated()
     		   .requestMatchers(HttpMethod.DELETE, "/user/{userId}").authenticated()
     		   .requestMatchers(HttpMethod.PUT, "/user").authenticated()
     		   .requestMatchers("/customerOrderArticle").authenticated()
-    		   .requestMatchers("/customerOrder").authenticated());
+    		   .requestMatchers("/customerOrderArticle/*").authenticated()
+    		   .requestMatchers("/customerOrder").authenticated()
+    		   .requestMatchers("/customerOrder/*").authenticated()
+    		   .anyRequest().permitAll());
        http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
        return http.build();
     }

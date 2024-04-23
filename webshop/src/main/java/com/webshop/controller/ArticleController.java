@@ -1,6 +1,7 @@
 package com.webshop.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webshop.model.Article;
+import com.webshop.model.ArticleBrand;
 import com.webshop.model.dto.article.ArticleCreationDto;
 import com.webshop.model.dto.article.ArticleUpdateDto;
 import com.webshop.model.dto.article.ArticleViewDto;
+import com.webshop.service.ArticleBrandService;
 import com.webshop.service.ArticleService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +38,7 @@ public class ArticleController {
 
 	
 	private final ArticleService articleService;
+	private final ArticleBrandService articleBrandService;
 	private final ModelMapper mapper;
 
 	
@@ -48,8 +52,6 @@ public class ArticleController {
 			List<ArticleViewDto> articleDto = articles.stream()
 					.map(article -> mapper.map(article, ArticleViewDto.class))
 					.collect(Collectors.toList());
-			
-			
 			
 			return ResponseEntity.ok(articleDto);
 		} 
@@ -70,6 +72,29 @@ public class ArticleController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity doesn't exist");
 		}
 	}
+	
+	@GetMapping("/nameOfArticle")
+	public ResponseEntity<?> getArticleBrandByName(@RequestParam String articleName) {
+		List<Article> brands = articleService.getArticlesByName(articleName);
+		
+		if(!brands.isEmpty()) {
+			return ResponseEntity.ok(brands);
+		} else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no articles wtih that name!");
+	}
+	
+	@GetMapping("/articleBrand/{brandId}")
+	public ResponseEntity<?> getArticleBrandByBrand(@PathVariable String brandId) {
+		Optional<ArticleBrand> articleBrand =  articleBrandService.getArticleBrandById(brandId);
+		if(!articleBrand.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Brand doesn't exist!");
+		}
+		List<Article> articles = articleService.getArticlesByBrand(articleBrand.get());
+		
+		if(!articles.isEmpty()) {
+			return ResponseEntity.ok(articles);
+		} else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no articles of that brand!");
+	}
+	
 	
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'WORKER')")
 	@PostMapping
