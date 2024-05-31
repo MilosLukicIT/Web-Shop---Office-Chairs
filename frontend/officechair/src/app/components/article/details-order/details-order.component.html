@@ -1,0 +1,52 @@
+<!-- <section class="page-section" id="order-details">
+    <div class="container col-md-5" style="border: solid 1px; margin-top: 25px; margin-bottom: 8%; background-color:thistle">
+        <ng-container *ngFor="let order of order">
+            <h2 class="text-center mt-0">Poručeno: {{order.timeOfOrder}}</h2>
+            <hr class="divider my-4">
+            <div class="row my-4">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Kontak informacije</h5>
+                            <p class="card-text">{{order.first_name}} <br>
+                                {{order.contact}} <br>
+                                {{order.address}} <br>
+                                {{order.email}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Račun</h5>
+                            <p class="card-text">{{total}}.00rsd <br><br><br></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Vrsta</th>
+                            <th scope="col">Ime</th>
+                            <th scope="col">Količina</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let item of order.items">
+                            <tr *ngIf="item.quantity > 0">
+                                <td scope="row">{{ item.name }}</td>
+                                <td scope="row">{{ item.price }}</td>
+                                <td scope="row">{{ item.quantity }}</td>
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+    </div>
+</section> -->

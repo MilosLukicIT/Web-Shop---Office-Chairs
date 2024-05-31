@@ -1,0 +1,101 @@
+
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3 fadeInDown" style="margin: 10px;">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px; box-shadow: 10px 10px 10px gray;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Kreiraj nalog</h2>
+              <form class="form-signup" [formGroup]="signUpForm" (ngSubmit)="registerUser()">
+
+                <div class="form-group mb-4">
+                  <input type="text" id="inputFirstName" class="form-control form-control-lg"
+                    formControlName="name" required />
+                  <label class="form-label" for="inputFirstName">Ime</label>
+                  <span class="text-danger"
+                    *ngIf="name&& name.errors?.['required'] && name.touched"><br> *Ovo polje je
+                    obavezno</span>
+                </div>
+                <div class="form-group mb-4">
+                  <input type="text" id="inputLastName" class="form-control form-control-lg" formControlName="surname"
+                    required />
+                  <label class="form-label" for="inputLastName">Prezime</label>
+                  <span class="text-danger"
+                    *ngIf="surname && surname.errors?.['required'] && surname.touched"><br> *Ovo polje je
+                    obavezno</span>
+                </div>
+
+                <div class="form-group mb-4">
+                  <input type="email" id="inputEmail" class="form-control form-control-lg" formControlName="email" />
+                  <label class="form-label" for="inputEmail">Email</label>
+                  <span class="text-danger" *ngIf="email && email.errors?.['required'] && email.touched"><br> *Ovo polje
+                    je obavezno</span>
+                  <div class="text-danger" *ngIf="email && email.touched && email.errors?.['email']">
+                    example mail.com</div>
+                </div>
+
+                <div *ngIf="authService.isLoggedIn" class="form-group mb-4">
+                  <div *ngIf="isAdmin()">
+                    <input type="text" id="inputRole" class="form-control form-control-lg" formControlName="role" />
+                    <label class="form-label" for="inputRole">Tip korisnika</label>
+                  </div>
+                </div>
+
+                <div class="form-group mb-4">
+                  <input type="password" id="inputPassword" class="form-control form-control-lg"
+                    formControlName="password" />
+                  <label class="form-label" for="inputPassword">Lozinka</label>
+                  <span class="text-danger" *ngIf="password && password.errors?.['required'] && password.touched"><br>
+                    *Ovo polje
+                    je obavezno</span>
+                </div>
+
+                <div class="form-group mb-4">
+                  <input type="username" id="inputUsername" class="form-control form-control-lg"
+                    formControlName="username" />
+                  <label class="form-label" for="inputUsername">Korisničko ime</label>
+                  <span class="text-danger" *ngIf="username && username.errors?.['required'] && username.touched"><br>
+                    *Ovo polje
+                    je obavezno</span>
+                </div>
+
+                <div class="form-group mb-4">
+                  <input type="adress" id="inputAdress" class="form-control form-control-lg"
+                    formControlName="adress" />
+                  <label class="form-label" for="inputAdress">Adresa</label>
+                  <span class="text-danger" *ngIf="adress && adress.errors?.['required'] && adress.touched"><br>
+                    *Ovo polje
+                    je obavezno</span>
+                </div>
+                
+
+                <div class="form-group mb-4">
+                  <input type="contactNumber" id="inputContactNumber" class="form-control form-control-lg"
+                    formControlName="contactNumber" />
+                  <label class="form-label" for="inputContactNumber">Kontakt telefon</label>
+                  <span class="text-danger" *ngIf="contactNumber && contactNumber.errors?.['required'] && contactNumber.touched"><br>
+                    *Ovo polje
+                    je obavezno</span>
+                </div>
+
+                <div class="form-group d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" required />
+                  <label class="form-check-label" for="form2Example3g">
+                    Prihvatam sve <a href="#!" class="text-body"><u>Uslove korišćenja</u></a>
+                  </label>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button [disabled]="signUpForm.invalid" type="submit"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Registruj se</button>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Već imaš kreiran nalog? <a routerLink="/login"
+                    class="fw-bold text-body"><u>Uloguj se</u></a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

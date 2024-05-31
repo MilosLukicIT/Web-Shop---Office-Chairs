@@ -1,0 +1,75 @@
+
+<div style="margin-bottom: 12%;" class="container">
+  <div class="row">
+    <div class="inner-main card col-sm" style="height: 320px;">
+      <h2 class="mb-4">Korisnički profil</h2>
+      <p><strong>Ime:</strong> {{ !!this.currentUser ? this.currentUser.name : "" }}</p>
+      <p><strong>Prezime:</strong> {{!!this.currentUser ? this.currentUser.surname : ""}}</p>
+      <p><strong>E-mail:</strong> {{ !!this.currentUser ? this.currentUser.email : "" }}</p>
+      <p><strong>Adresa:</strong> {{ !!this.currentUser ? this.currentUser.adress : "" }}</p>
+      <p><strong>Rola:</strong> {{ !!this.currentUser ? this.currentUser.role : "" }}</p>
+      <button  class="btn btn-outline-danger"(click)="deleteProfile(this.currentUser.userId)">Obriši profil</button>
+      <button class="btn btn-outline-info" style="margin-top: 10px;" *ngIf="isAdmin()" (click)="createNewAdmin()">Kreiraj novog admina</button>
+    </div>
+
+
+    <!-- <ng-container *ngIf="orderExist">
+      <div class="col-sm orderCard">
+        <ng-container *ngFor="let order of userOrder">
+          
+          <h2 class="text-center mt-0">Poručeno: {{order.timeOfOrder}}</h2>
+          <hr class="divider my-4">
+          <div class="row my-4">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Kontak informacije</h5>
+                  <p class="card-text">{{order.first_name}} <br>
+                    {{order.contact}} <br>
+                    {{order.address}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Račun</h5>
+                  <p class="card-text">{{total}}.00rsd <br><br><br></p>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Naziv jela</th>
+                  <th scope="col">Cena</th>
+                  <th scope="col">Količina</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let item of order.items">
+                  <ng-container *ngIf="item.quantity > 0">
+                  <tr>
+                    <td scope="row">{{ item.name }}</td>
+                    <td scope="row">{{ item.price }}</td>
+                    <td scope="row">x{{ item.quantity }}</td>
+                  </tr>
+                </ng-container>
+                </ng-container>
+  
+              </tbody>
+            </table>
+          </div>
+          <p *ngIf="order.done == 'true' ">Vaša porudžbina je spremna</p>
+          <p *ngIf="order.done == 'false' ">Vaša porudžbina je u pripremi</p>
+        </ng-container>
+      </div>
+    </ng-container> -->
+  </div>
+  
+
+</div>

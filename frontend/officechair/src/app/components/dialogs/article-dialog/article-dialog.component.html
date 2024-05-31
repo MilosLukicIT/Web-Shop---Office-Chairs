@@ -1,0 +1,59 @@
+<div class="main-content">
+
+    <div class="container" style="text-align: center;" >
+        <h3 mat-dialog-title *ngIf="flag == 1">Dodavanje artikla</h3>
+        <h3 mat-dialog-title *ngIf="flag == 2">Ažuriranje artikla: {{data.nameOfArticle}}</h3>
+        <h3 mat-dialog-title *ngIf="flag == 3">Brisanje artikla: {{data.nameOfArticle}}</h3>
+    
+        <form class="mat-dialog-content" #formControl="ngForm" >
+            <div class="form">
+                <mat-form-field >
+                    <input matInput placeholder="Naziv artikla" name="nameOfArticle" [disabled]="flag==3" [(ngModel)]="this.data.nameOfArticle" required/>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Cena artikla" name="priceOfArticle" [disabled]="flag==3" [(ngModel)]="this.data.priceOfArticle" required/>
+                 </mat-form-field >
+               </div>
+           <div class="form">
+            <mat-form-field>
+                <input matInput placeholder="Proizvodjac" name="manufacturerOfArticle" [disabled]="flag==3" [(ngModel)]="this.data.manufacturerOfArticle" required/>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Nosivost" name="carryingCapacity" [disabled]="flag==3" [(ngModel)]="this.data.carryingCapacity" required/>
+            </mat-form-field>
+           </div>
+           <div class="form">
+            <mat-form-field>
+                <input matInput placeholder="Boja" name="colorOfArticle" [disabled]="flag==3" [(ngModel)]="this.data.colorOfArticle" required/>
+            </mat-form-field>
+           </div>
+
+           <div class="form">
+                <mat-form-field class="form-field input">
+                    <mat-select [compareWith]="compare" placeholder="Brend" name="nameOfBrand" [(ngModel)]="data.articleBrand" [disabled]="flag==3" required>
+                        <mat-option *ngFor="let brend of articleBrands" [value]="brend">
+                            {{brend.nameOfBrand}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="form-field input">
+                    <mat-select [compareWith]="compare" placeholder="Tip" name="typeOfBrand" [(ngModel)]="data.articleType" [disabled]="flag==3" required>
+                        <mat-option *ngFor="let tip of articleTypes" [value]="tip">
+                            {{tip.nameOfType}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+           
+        </form>
+    
+        <div class="mat-dialog-actions">
+            <button matButton *ngIf="flag == 1" class="btn-save" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="add()">Sačuvaj</button>
+            <button matButton *ngIf="flag == 2" class="btn-save" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Modifikuj</button>
+            <button matButton *ngIf="flag == 3" class="btn-save" mat-dialog-close="1" (click)="delete()">Obriši</button>
+            <button matButton class="btn-cancel" (click)="cancel()">Poništi</button>
+        </div>
+    </div>
+
+</div>

@@ -26,6 +26,7 @@ public class ArticleCreationDto {
 	private Float lengthOfArticle;
 	private String descriptionOfArticle;
 	private Float discount;
+	private String imageUrl;
 	
 	private ArticleBrand articleBrand;
 	private ArticleType articleType;

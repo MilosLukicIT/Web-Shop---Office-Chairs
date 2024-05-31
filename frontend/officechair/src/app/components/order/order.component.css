@@ -1,0 +1,13 @@
+
+th{
+    width: 33%;
+}
+
+
+.mainDiv{
+    border: solid 1px darkgrey; 
+    margin-top: 15px; 
+    margin-bottom: 15px;
+    background-image: url(~src/assets/Menu.jpg);
+    border-radius: 50px;
+}

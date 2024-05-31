@@ -53,6 +53,8 @@ public class Article {
 	private Float lengthOfArticle;
 	@Column(length = 200, nullable = false, unique = false)
 	private String descriptionOfArticle;
+	@Column(length = 200, nullable = true, unique = false)
+	private String imageUrl;
 	
 	@Column(unique = false, columnDefinition = "NUMERIC")
 	private Float discount;

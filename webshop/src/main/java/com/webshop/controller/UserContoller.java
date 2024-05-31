@@ -38,7 +38,7 @@ public class UserContoller {
 	private final ModelMapper mapper;
 	
 	
-	
+	@PreAuthorize("hasAnyAuthority('ADMIN')")
 	@GetMapping
 	public ResponseEntity<?> getAllUsers() {
 		

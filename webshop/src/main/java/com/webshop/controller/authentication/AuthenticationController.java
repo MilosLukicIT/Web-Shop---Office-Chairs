@@ -41,12 +41,12 @@ public class AuthenticationController {
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
 		
 		try {
+			
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 			User user = mapper.map(service.getUserByEmail(authentication.getName()), User.class);
 			
 			String token = jwtUtil.createToken(user);
 			LoginResponse response = new LoginResponse(loginRequest.getEmail(), token);
-			
 			return ResponseEntity.ok(response);
 		}catch (BadCredentialsException e) {
 			ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST,"Invalid email or password");

@@ -1,0 +1,20 @@
+
+
+.mainDiv{
+    margin-top: 25px;
+}
+
+
+
+.menuTitle{
+    font-family: 'Vivaldi', Calibri, 'Trebuchet MS', sans-serif; 
+    font-size: 400%;
+}
+
+table{
+    border-radius: 25px;
+}
+
+table, tr, td, th{
+    border: none;
+}

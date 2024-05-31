@@ -1,0 +1,29 @@
+<section class="page-section" id="providers-list">
+  <h2 class="text-center mt-0 menuTitle">Artikli</h2>
+    <div class="container mainDiv">
+        
+        <a *ngIf="isAdmin()" (click)="openDialog(1)" class="btn btn-primary my-2">Dodaj novi proizvod</a>
+        <button style="margin-left: 10px;" class="btn btn-danger my-2" (click)="clearCart()">Ukloni sve iz korpe</button>
+        <div class="row" style="margin: 10px;">
+        <div class="col-md-4" *ngFor="let articles of sortedProduct">
+        <mat-card class="example-card">
+            <mat-card-header class="title">
+              <mat-card-title >{{articles.nameOfArticle}}</mat-card-title>
+              <mat-card-subtitle>{{articles.articleType.nameOfType}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image class="img-size" src="{{articles.imageUrl}}" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+                {{articles.descriptionOfArticle}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <a *ngIf="isAdmin()" (click)="clickMethod(articles.name, articles.articleId)" class="btn btn-danger btn-sm mx-1" >Obriši</a>
+                                <a *ngIf="isAdmin()" (click)="updateItem(articles.articleId)" class="btn btn-primary btn-sm mx-1" >Izmeni</a>
+                                <button class="btn btn-secondary btn-sm mx-1" (click)="addToCart(articles)">Dodaj u korpu</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+</section>
