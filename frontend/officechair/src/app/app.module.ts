@@ -15,12 +15,9 @@ import { OrderComponent } from './components/order/order.component';
 import{AuthconfigInterceptor} from './services/authconfig.interceptor';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AddProductComponent } from './components/article/add-product/add-product.component';
 import { ViewOrdersComponent } from './components/article/view-orders/view-orders.component';
 import { DetailsOrderComponent } from './components/article/details-order/details-order.component';
 import { AdminComponent } from './admin/admin.component';
-import { DeleteProductComponent } from './components/article/delete-product/delete-product.component';
-import { UpdateProductComponent } from './components/article/update-product/update-product.component';
 import { MatCardModule } from '@angular/material/card';
 import { ArticleDialogComponent } from './components/dialogs/article-dialog/article-dialog.component';
 import { ArticleTypeDialogComponent } from './components/dialogs/article-type-dialog/article-type-dialog.component';
@@ -28,7 +25,10 @@ import { ArticleBrandDialogComponent } from './components/dialogs/article-brand-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
- 
+import {MatIconModule} from "@angular/material/icon";
+import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -44,12 +44,9 @@ import { MatSelectModule } from '@angular/material/select';
     MenuComponent,
     OrderComponent,
     UserProfileComponent,
-    AddProductComponent,
     ViewOrdersComponent,
     DetailsOrderComponent,
     AdminComponent,
-    DeleteProductComponent,
-    UpdateProductComponent,
     ArticleDialogComponent,
     ArticleTypeDialogComponent,
     ArticleBrandDialogComponent
@@ -64,7 +61,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
-    
+    MatIconModule,
+    provideFirebaseApp(() => initializeApp(environment.fireBaseConfig)),
+    provideStorage(() => getStorage())
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

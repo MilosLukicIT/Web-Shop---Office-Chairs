@@ -10,7 +10,16 @@ export const environment = {
   apiCustomerOrder: 'http://localhost:8080/customerOrder',
   apiUserLogin: 'http://localhost:8080/auth/login',
   apiArticleBrand: 'http://localhost:8080/articleBrand',
-  apiArticleType: 'http://localhost:8080/articleType'
+  apiArticleType: 'http://localhost:8080/articleType',
+
+  fireBaseConfig: {
+    apiKey: "AIzaSyDAlsay3Yno6QukQy_jBkM1u33bRXNJTsM",
+  authDomain: "officechairimg.firebaseapp.com",
+  projectId: "officechairimg",
+  storageBucket: "officechairimg.appspot.com",
+  messagingSenderId: "223156226088",
+  appId: "1:223156226088:web:9529929f82f034d1918d1d"
+  }
 };
 
 /*

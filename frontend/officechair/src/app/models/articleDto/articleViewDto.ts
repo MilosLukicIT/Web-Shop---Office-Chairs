@@ -2,20 +2,20 @@ import { ArticleTypeViewDto } from "../artcleTypeDto/articleTypeViewDto";
 import { ArticleBrandViewDto } from "../articleBrandDto/articleBrandViewDto";
 
 export class ArticleViewDto {
-    articleId: String;
-	nameOfArticle!: String;
+    articleId: string;
+	nameOfArticle!: string;
 	priceOfArticle: number;
-    manufacturerOfArticle!: String;
-	carryingCapacity!: Number;
-	colorOfArticle!: String;
-	availableAmountOfArticle!: Number;
-	warrantyLength!: String;
-	heightOfArticle!: Number;
-	widthOfArticle!: Number;
-	lengthOfArticle!: Number;
-	descriptionOfArticle!: String;
-	discount!: Number;
-	imageUrl!: String;
+    manufacturerOfArticle!: string;
+	carryingCapacity!: number;
+	colorOfArticle!: string;
+	availableAmountOfArticle!: number;
+	warrantyLength!: string;
+	heightOfArticle!: number;
+	widthOfArticle!: number;
+	lengthOfArticle!: number;
+	descriptionOfArticle!: string;
+	discount!: number;
+	imageUrl!: string;
 	
 	articleBrand!: ArticleBrandViewDto;
 	articleType!: ArticleTypeViewDto;

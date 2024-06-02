@@ -10,6 +10,8 @@ import { CustomerOrderArticleViewDto } from 'src/app/models/customerOrderArticle
 import { MatDialog } from '@angular/material/dialog';
 import { ArticleDialogComponent } from '../dialogs/article-dialog/article-dialog.component';
 import { ArticleBrandViewDto } from 'src/app/models/articleBrandDto/articleBrandViewDto';
+import { ArticleTypeViewDto } from 'src/app/models/artcleTypeDto/articleTypeViewDto';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-menu',
@@ -21,10 +23,23 @@ export class MenuComponent implements OnInit {
   products = [new ArticleViewDto()];
   sortedProduct: any;
   count = 0;
+  pageNumber = 1;
+  numberPerPage = new FormControl(3);
+  items = 5;
 
 
-  constructor(public user: UserService, public articleService: ArticleService, public router: Router, 
-              public cartService: CartService, public auth: AuthenticationService, public dialog: MatDialog) { }
+
+  constructor(public user: UserService, private articleService: ArticleService, private router: Router, 
+              private cartService: CartService, private auth: AuthenticationService, private dialog: MatDialog) {
+                this.numberPerPage.valueChanges.subscribe(val => {
+                  if(val != null)
+                    {
+                      this.items = val;
+                      this.loadData();
+                    }
+                    
+                })
+               }
 
   ngOnInit(): void {
     this.loadData();
@@ -48,7 +63,7 @@ export class MenuComponent implements OnInit {
   }
 
   loadData() {
-    this.articleService.getArticles().subscribe(data => {
+    this.articleService.getArticles(this.pageNumber-1, this.items).subscribe(data => {
       this.products = data;
       this.sortedProduct = this.products;
     },(error: any) => {
@@ -57,22 +72,44 @@ export class MenuComponent implements OnInit {
 
   }
 
-  public clickMethod(name: string, _id: string) {
-    if(confirm("Are you sure to delete "+ name + " ?")) {
-      this.router.navigate(['/product/delete/'+ _id]);
+  public deleteArticle(nameOfArticle: String, id: string) {
+    if(confirm("Da li ste sigurni da želite da izbrišete "+ nameOfArticle + " ?")) {
+
+      this.articleService.deleteArticle(id).subscribe(res =>{
+        this.loadData();
+      });
+      
       
     }
-  }
-
-  public updateItem(id: string){
-    this.router.navigate(['/product/update/'+ id]);
+    
   }
 
 
-  public openDialog(flag: number, articleId?: String, nameOfArticle?: String, manufacturerOfArticle?: String, priceOfArticle?: Number, colorOfArticle?: String, carryingCapacity?: Number, articleBrand?: ArticleBrandViewDto) {
+  public prevPage(){
+
+    if(this.pageNumber>1)
+    this.pageNumber--;
+    this.loadData();   
+  }
+
+  public nextPage(){
+    console.log(this.sortedProduct.length >= this.items)
+    if(this.sortedProduct.length == this.items){
+      this.pageNumber++;
+      this.loadData();
+    }
+    
+  }
+
+  public openDialog(flag: number, articleId?: String, nameOfArticle?: String, priceOfArticle?: number, manufacturerOfArticle?: String, 
+    carryingCapacity?: Number, colorOfArticle?: String, availableAmountOfArticle?: Number, 
+    warrantyLength?: String, heightOfArticle?: Number, widthOfArticle?: Number, lengthOfArticle?: Number, 
+    descriptionOfArticle?: String, discount?: number, imageUrl?: String,
+    articleBrand?: ArticleBrandViewDto, articleType?: ArticleTypeViewDto) {
 
     const dialogRef = this.dialog.open(ArticleDialogComponent, {height: '600px',
-    width: '500px', data: {articleId, nameOfArticle, manufacturerOfArticle, priceOfArticle, colorOfArticle, carryingCapacity, articleBrand}});
+    width: '100%', data: {articleId, nameOfArticle, priceOfArticle, manufacturerOfArticle, carryingCapacity, colorOfArticle,availableAmountOfArticle,
+      warrantyLength, heightOfArticle, widthOfArticle, lengthOfArticle, descriptionOfArticle, discount, imageUrl, articleBrand, articleType}});
     dialogRef.componentInstance.flag = flag;
 
     dialogRef.afterClosed().subscribe(

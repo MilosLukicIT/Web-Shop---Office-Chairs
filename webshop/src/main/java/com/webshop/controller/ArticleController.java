@@ -74,7 +74,7 @@ public class ArticleController {
 	}
 	
 	@GetMapping("/nameOfArticle")
-	public ResponseEntity<?> getArticleBrandByName(@RequestParam String articleName) {
+	public ResponseEntity<?> getArticleBrandByName(@RequestParam(name = "name") String articleName) {
 		List<Article> brands = articleService.getArticlesByName(articleName);
 		
 		if(!brands.isEmpty()) {

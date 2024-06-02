@@ -1,13 +1,28 @@
-<section class="page-section" id="providers-list">
+<section class="page-section " id="providers-list">
   <h2 class="text-center mt-0 menuTitle">Artikli</h2>
-    <div class="container mainDiv">
+    <div class="container mainDiv ">
         
-        <a *ngIf="isAdmin()" (click)="openDialog(1)" class="btn btn-primary my-2">Dodaj novi proizvod</a>
-        <button style="margin-left: 10px;" class="btn btn-danger my-2" (click)="clearCart()">Ukloni sve iz korpe</button>
-        <div class="row" style="margin: 10px;">
-        <div class="col-md-4" *ngFor="let articles of sortedProduct">
-        <mat-card class="example-card">
+      <a *ngIf="isAdmin()" (click)="openDialog(1)" class="btn btn-primary my-2 ">Dodaj novi proizvod</a>
+      <button style="margin-left: 10px;" class="btn btn-danger my-2" (click)="clearCart()">Ukloni sve iz korpe</button>
+      <select name="numberPerPage" id="numberPerPage" style="margin-left: 10px;" [formControl]="numberPerPage">
+        <option value="3">3</option>
+        <option value="6">6</option>
+        <option value="9">9</option>
+        <option value="12">15</option>
+      </select>
+      <div class="row fadeIn " style="margin: 10px; ">
+        <div class="col-md-4 " *ngFor="let articles of sortedProduct">
+        <mat-card class="example-card ">
             <mat-card-header class="title">
+              <button (click)="openDialog(4, articles.articleId, articles.nameOfArticle, articles.priceOfArticle, articles.manufacturerOfArticle, articles.carryingCapacity, articles.colorOfArticle, articles.availableAmountOfArticle,
+              articles.warrantyLength, articles.heightOfArticle, articles.widthOfArticle, articles.lengthOfArticle, articles.descriptionOfArticle, articles.discount, articles.imageUrl, articles.articleBrand, articles.articleType)" class="btn-primary" style="border-radius: 25px; height: 35px;">
+                <a class="nav-link js-scroll-trigger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          class="bi bi-basket" viewBox="0 0 320 512">
+          <path
+            d="M80 160c0-35.3 28.7-64 64-64h32c35.3 0 64 28.7 64 64v3.6c0 21.8-11.1 42.1-29.4 53.8l-42.2 27.1c-25.2 16.2-40.4 44.1-40.4 74V320c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.4c0-8.2 4.2-15.8 11-20.2l42.2-27.1c36.6-23.6 58.8-64.1 58.8-107.7V160c0-70.7-57.3-128-128-128H144C73.3 32 16 89.3 16 160c0 17.7 14.3 32 32 32s32-14.3 32-32zm80 320a40 40 0 1 0 0-80 40 40 0 1 0 0 80z" />
+        </svg></a>
+                
+                </button>
               <mat-card-title >{{articles.nameOfArticle}}</mat-card-title>
               <mat-card-subtitle>{{articles.articleType.nameOfType}}</mat-card-subtitle>
             </mat-card-header>
@@ -16,14 +31,40 @@
               <p>
                 {{articles.descriptionOfArticle}}
               </p>
+              <div *ngIf="articles.discount != null; else noDiscount" class="row">
+                <p>
+                  Cena: {{articles.priceOfArticle}} din.   Popust: {{articles.discount}}%
+                </p>
+              </div>
+
+              <ng-template #noDiscount>
+                <p>
+                  Cena: {{articles.priceOfArticle}} din.   
+                </p>
+              </ng-template>
+              <p *ngIf="articles.availableAmountOfArticle > 25" style="color: green;">
+                Na lageru: {{articles.availableAmountOfArticle}}
+              </p>
+              <p *ngIf="articles.availableAmountOfArticle < 26 && articles.availableAmountOfArticle > 5" style="color: orange;">
+                Na lageru: {{articles.availableAmountOfArticle}}
+              </p>
+              <p *ngIf="articles.availableAmountOfArticle <= 5" style="color: red;">
+                Na lageru: {{articles.availableAmountOfArticle}}
+              </p>
             </mat-card-content>
             <mat-card-actions>
-              <a *ngIf="isAdmin()" (click)="clickMethod(articles.name, articles.articleId)" class="btn btn-danger btn-sm mx-1" >Obriši</a>
-                                <a *ngIf="isAdmin()" (click)="updateItem(articles.articleId)" class="btn btn-primary btn-sm mx-1" >Izmeni</a>
+              <a *ngIf="isAdmin()" (click)="deleteArticle(articles.nameOfArticle, articles.articleId)" class="btn btn-danger btn-sm mx-1" >Obriši</a>
+                                <a *ngIf="isAdmin()" (click)="openDialog(2, articles.articleId, articles.nameOfArticle, articles.priceOfArticle, articles.manufacturerOfArticle, articles.carryingCapacity, articles.colorOfArticle, articles.availableAmountOfArticle,
+                                articles.warrantyLength, articles.heightOfArticle, articles.widthOfArticle, articles.lengthOfArticle, articles.descriptionOfArticle, articles.discount, articles.imageUrl, articles.articleBrand, articles.articleType)" class="btn btn-primary btn-sm mx-1" >Izmeni</a>
                                 <button class="btn btn-secondary btn-sm mx-1" (click)="addToCart(articles)">Dodaj u korpu</button>
             </mat-card-actions>
           </mat-card>
         </div>
       </div>
+      <div class="row fadeIn" style="margin: 10px; text-align: center; width: 100%;">
+        <a (click)="prevPage()" class="btn-arrow btn-arrow-left" title="Previous" >Previous</a>
+        <div class="col-md-1" style="margin-top: 30px;"><p class="">{{pageNumber}}</p></div>
+        
+        <a (click)="nextPage()" class="btn-arrow btn-arrow-right" title="Next">Next</a></div>
     </div>
 </section>

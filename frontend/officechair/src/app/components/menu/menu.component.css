@@ -6,10 +6,10 @@
     text-align: center;
   }
 
-  .example-card:hover {
+  /* .example-card:hover {
     margin: 10px;
     
-  }
+  } */
   
   .example-header-image {
     background-size: cover;
@@ -28,6 +28,87 @@
     font-style: italic;
     font-size: 50px;
   }
+
+
+  .btn-arrow {
+    color: transparent;
+    display: block;
+    margin: 30px;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+    background-color: rgba(black, .05);
+
+    transition: all 150ms ease-out;
+
+    &::before,
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+            top: 0;
+            left: 0;
+
+        background-color: #606060;
+        
+        transition: all 150ms ease-out;
+    }
+
+    &::before {
+        width: 75%;
+        height: 25%;
+    }
+
+    &::after {
+        width: 25%;
+        height: 75%;
+    }
+
+    &:hover, &:focus {
+        background-color: rgba(black, .1);
+        
+        &::before,
+        &::after {
+            background-color: #404040;
+        }
+    }
+
+    &.btn-arrow-left,
+    &.btn-arrow-right {
+        &::before,
+        &::after {
+            top: 12.5%;
+            left: 12.5%;
+        }
+    }
+
+    &.btn-arrow-left {
+        transform: rotate(-45deg);
+    }
+
+    &.btn-arrow-right {
+        transform: rotate(135deg);
+    }
+}
+
+
+
+/* ========================= */
+
+
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
 
 
   .fadeInDown {
