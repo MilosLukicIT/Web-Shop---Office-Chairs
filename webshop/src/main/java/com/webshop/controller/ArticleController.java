@@ -43,10 +43,13 @@ public class ArticleController {
 
 	
 	@GetMapping
-	public ResponseEntity<?> getAllArticle(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "5")int size) {
+	public ResponseEntity<?> getAllArticle(@RequestParam(name = "page", defaultValue = "0") int page, 
+											@RequestParam(name = "size", defaultValue = "5")int size,
+											@RequestParam(name = "order", defaultValue = "1") int order,
+											@RequestParam(name = "orderByValue", defaultValue = "nameOfArticle") String orderByValue) {
 		
 
-		List<Article> articles = articleService.getAllArticles(page, size);
+		List<Article> articles = articleService.getAllArticles(page, size, order, orderByValue);
 		
 		if (!articles.isEmpty()) {
 			List<ArticleViewDto> articleDto = articles.stream()

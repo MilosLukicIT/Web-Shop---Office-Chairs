@@ -1,75 +1,254 @@
-
-<div style="margin-bottom: 12%;" class="container">
-  <div class="row">
-    <div class="inner-main card col-sm" style="height: 320px;">
-      <h2 class="mb-4">Korisnički profil</h2>
-      <p><strong>Ime:</strong> {{ !!this.currentUser ? this.currentUser.name : "" }}</p>
-      <p><strong>Prezime:</strong> {{!!this.currentUser ? this.currentUser.surname : ""}}</p>
-      <p><strong>E-mail:</strong> {{ !!this.currentUser ? this.currentUser.email : "" }}</p>
-      <p><strong>Adresa:</strong> {{ !!this.currentUser ? this.currentUser.adress : "" }}</p>
-      <p><strong>Rola:</strong> {{ !!this.currentUser ? this.currentUser.role : "" }}</p>
-      <button  class="btn btn-outline-danger"(click)="deleteProfile(this.currentUser.userId)">Obriši profil</button>
-      <button class="btn btn-outline-info" style="margin-top: 10px;" *ngIf="isAdmin()" (click)="createNewAdmin()">Kreiraj novog admina</button>
-    </div>
+<div class="main-content">
+  <div class="container mat-elavation-z8">
 
 
-    <!-- <ng-container *ngIf="orderExist">
-      <div class="col-sm orderCard">
-        <ng-container *ngFor="let order of userOrder">
-          
-          <h2 class="text-center mt-0">Poručeno: {{order.timeOfOrder}}</h2>
-          <hr class="divider my-4">
-          <div class="row my-4">
-            <div class="col-sm-6">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+        </div>
+        <div class="col-md-3"></div>
+          <div class="col-md-6" style="text-align: center;">
               <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Kontak informacije</h5>
-                  <p class="card-text">{{order.first_name}} <br>
-                    {{order.contact}} <br>
-                    {{order.address}}
-                  </p>
-                </div>
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Korisnički profil</h4>
+                      <p class="card-category">Osnovne informacije</p>
+                  </div>
+                  <div class="card-body" style="text-align: center;">
+                      <form>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                              <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input class="inputField" matInput placeholder="Email adresa" type="text" [value]="this.currentUser.email || ' ' " disabled>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-2">
+                              </div>
+                              <div class="col-md-2">
+                                  <mat-form-field class="example-full-width">
+                                    <input class="inputField" matInput placeholder="Adresa" type="text" [value]="this.currentUser.adress || ' ' " disabled>
+                                  </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input class="inputField" matInput placeholder="Ime" type="text" [value]="this.currentUser.name || ' ' " disabled>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-2">
+                              </div>
+                              <div class="col-md-2">
+                                <mat-form-field class="example-full-width">
+                                  <input class="inputField" matInput placeholder="Prezime" type="text" [value]="this.currentUser.surname || ' ' " disabled>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                <br><br>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-1"></div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input class="inputField" matInput placeholder="Kontakt telefon" type="text" [value]="this.currentUser.contactNumber || ' ' " disabled>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-2">
+                                
+                              </div>
+                              <div class="col-md-2">
+                                <mat-form-field class="example-full-width">
+                                  <input class="inputField" matInput placeholder="Uloga" type="text" [value]="this.currentUser.role || ' ' " disabled>
+                                </mat-form-field>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-1"></div>     
+                            <button mat-raised-button type="submit" style="width: 40%;" class="btn btn-danger pull-right" (click)="openDialog(2, currentUser.userId, 
+                            currentUser.name, currentUser.surname, currentUser.email, currentUser.adress, 
+                            currentUser.username, currentUser.role, currentUser.contactNumber)">Update Profile</button>
+                            <div class="col-md-1"></div>
+                            <button mat-raised-button type="submit" style="width: 40%;" class="btn btn-danger pull-right" (click)="openDialog(3, currentUser.userId, 
+                            currentUser.name, currentUser.surname, currentUser.email, currentUser.adress, 
+                            currentUser.username, currentUser.role, currentUser.contactNumber)">Delete Profile</button>
+                          </div>
+                          <div class="col-md-3">
+                            <button mat-raised-button class="btn btn-danger" style="margin: 10px;" routerLink="/order-details">Your order</button>
+                          </div>
+                          
+                          
+                          
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
               </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Račun</h5>
-                  <p class="card-text">{{total}}.00rsd <br><br><br></p>
-  
-                </div>
-              </div>
-            </div>
           </div>
-          <div class="table-responsive">
-            <table class="table table-hover table-bordered">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Naziv jela</th>
-                  <th scope="col">Cena</th>
-                  <th scope="col">Količina</th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container *ngFor="let item of order.items">
-                  <ng-container *ngIf="item.quantity > 0">
-                  <tr>
-                    <td scope="row">{{ item.name }}</td>
-                    <td scope="row">{{ item.price }}</td>
-                    <td scope="row">x{{ item.quantity }}</td>
-                  </tr>
-                </ng-container>
-                </ng-container>
-  
-              </tbody>
-            </table>
-          </div>
-          <p *ngIf="order.done == 'true' ">Vaša porudžbina je spremna</p>
-          <p *ngIf="order.done == 'false' ">Vaša porudžbina je u pripremi</p>
-        </ng-container>
       </div>
-    </ng-container> -->
   </div>
-  
+<div *ngIf="isAdmin()" >
+
+
+  <h1 style="margin-top: 50px; text-align: center;">Admin panel</h1>
+  <div class="row"> 
+    <div class="col-md-2"><p>Dodaj novog zaposlenog</p></div>
+    <div class="col-md-4"><button class="add-button" mat-icon-button color="accent" (click)="openDialog(1)">
+      <mat-icon><i class="material-icons">add</i></mat-icon>
+    </button></div>
+    </div>
+ 
+    <div class="container mat-elavation-z8">
+      <div class="card-header card-header-danger col-md-4 tableKor">
+        <h4 class="card-title" style="color: white;">Korisnici sistema</h4>
+        
+      </div>
+      
+        <mat-table #table [dataSource]="dataSource" class="mat-cell">
+          <!--ID-->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Ime</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+          </ng-container>
+          <!--IME-->
+          <ng-container matColumnDef="surname"> <!--displayColumns u ts fajlu-->
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Prezime</mat-header-cell> <!-- *-Angular direktiva -->
+            <mat-cell *matCellDef="let row">{{ row.surname }}</mat-cell> 
+          </ng-container>
+          <!--PREZIME-->
+          <ng-container matColumnDef="email"> <!--displayColumns u ts fajlu-->
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell> <!-- *-Angular direktiva -->
+            <mat-cell *matCellDef="let row">{{ row.email }}</mat-cell> 
+          </ng-container>
+          <!-- MBR -->
+          <ng-container matColumnDef="adress">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Adresa</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.adress }}</mat-cell>
+          </ng-container>
+          <!-- STATUS -->
+          <ng-container matColumnDef="role">
+            <mat-header-cell *matHeaderCellDef>Uloga</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ row.role }}</mat-cell>
+          </ng-container>
+          <!-- Action Buttons -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>
+              
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index">
+              <button mat-icon-button class="update-button" (click)="openDialog(2, row.userId, row.name, 
+              row.surname, row.email, row.adress, row.username, row.role, 
+              row.contactNumber)">
+                <i class="material-icons">edit</i>
+            </button>
+            <button mat-icon-button class="delete-button" (click)="openDialog(3, row.userId, row.name, 
+            row.surname, row.email, row.adress, row.username, row.role, 
+            row.contactNumber)">
+              <i class="material-icons">delete</i>
+          </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row
+          style="cursor: pointer;"
+          *matRowDef="let row; columns: displayedColumns" >
+        </mat-row>
+      </mat-table>
+  </div>
+
+  <div class="row">
+      <div class="col-md-6">
+        <div class="container mat-elavation-z8">
+        <div class="card-header card-header-danger col-md-4 tableKor">
+          <h4 class="card-title" style="color: white; margin: 10px;">Brendovi</h4>
+          
+        </div>
+          <mat-table #table [dataSource]="dataSourceBrands" class="mat-cell col-md-12">
+            <!--ID-->
+            <ng-container matColumnDef="nameOfBrand">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Naziv brenda</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.nameOfBrand }}</mat-cell>
+            </ng-container>
+            <!--IME-->
+            <ng-container matColumnDef="countryOfBrand"> <!--displayColumns u ts fajlu-->
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Država</mat-header-cell> <!-- *-Angular direktiva -->
+              <mat-cell *matCellDef="let row">{{ row.countryOfBrand }}</mat-cell> 
+            </ng-container>
+            <!-- Action Buttons -->
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>
+                <button class="add-button" mat-icon-button color="accent" (click)="openDialogBrand(1)">
+                  <mat-icon><i class="material-icons">add</i></mat-icon>
+                </button>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row; let i = index">
+                <button mat-icon-button class="update-button" (click)="openDialogBrand(2, row.brandId, row.nameOfBrand, 
+                row.countryOfBrand)">
+                  <i class="material-icons">edit</i>
+              </button>
+              <button mat-icon-button class="delete-button" (click)="openDialogBrand(3, row.brandId, row.nameOfBrand, 
+              row.countryOfBrand)">
+                <i class="material-icons">delete</i>
+            </button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumnsBrands"></mat-header-row>
+            <mat-row
+            style="cursor: pointer;"
+            *matRowDef="let row; columns: displayedColumnsBrands" >
+          </mat-row>
+        </mat-table>
+      </div>
+  </div>
+  <div class="col-md-2"></div>
+  <div class="col-md-4"><div class="container mat-elavation-z8">
+    <div class="card-header card-header-danger col-md-4 tableKor">
+      <h4 class="card-title" style="color: white; margin: 10px;">Tipovi</h4>
+      
+    </div>
+      <mat-table #table [dataSource]="dataSourceTypes" class="mat-cell col-md-12">
+        <!--ID-->
+        <ng-container matColumnDef="nameOfType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Naziv tipa</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.nameOfType }}</mat-cell>
+        </ng-container>
+        <!-- Action Buttons -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>
+            <button class="add-button" mat-icon-button color="accent" (click)="openDialogType(1)">
+              <mat-icon><i class="material-icons">add</i></mat-icon>
+            </button>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index">
+            <button mat-icon-button class="update-button" (click)="openDialogType(2, row.typeId, row.nameOfType)">
+              <i class="material-icons">edit</i>
+          </button>
+          <button mat-icon-button class="delete-button" (click)="openDialogType(3, row.typeId, row.nameOfType)">
+            <i class="material-icons">delete</i>
+        </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsTypes"></mat-header-row>
+        <mat-row
+        style="cursor: pointer;"
+        *matRowDef="let row; columns: displayedColumnsTypes" >
+      </mat-row>
+    </mat-table>
+</div></div>
+      
+
+
+    
+</div>
+
+
+
+
+
+  <!--ADMIN PANEL-->
+</div>
 
 </div>

@@ -1,0 +1,59 @@
+<div class="main-content">
+
+    <div class="container" style="text-align: center;">
+        <h3 mat-dialog-title *ngIf="flag == 1">Dodavanje korisnika</h3>
+        <h3 mat-dialog-title *ngIf="flag == 2">Ažuriranje korisnika: {{data.name}}</h3>
+        <h3 mat-dialog-title *ngIf="flag == 3">Brisanje korisnika: {{data.name}}</h3>
+    
+        <form class="mat-dialog-content" #formControl="ngForm" style="text-align: center;">
+           <div class="form">
+            <mat-form-field>
+                <input matInput placeholder="Ime" name="name" [disabled]="flag==3" [(ngModel)]="this.data.name" required />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Prezime" name="surname" [disabled]="flag==3" [(ngModel)]="this.data.surname" required />
+            </mat-form-field>
+        </div>
+           <div class="form" *ngIf="isAdmin()">
+            <mat-form-field>
+                <input matInput placeholder="Email" name="email" [disabled]="flag==3" [(ngModel)]="this.data.email" required />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Username" name="username" [disabled]="flag==3" [(ngModel)]="this.data.username" required />
+            </mat-form-field>
+           </div>
+           <div class="form">
+            <mat-form-field>
+                <input matInput placeholder="Adresa" name="adress" [disabled]="flag==3" [(ngModel)]="this.data.adress" required />
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Kontakt telefon" name="contactNumber" [disabled]="flag==3" [(ngModel)]="this.data.contactNumber" required />
+            </mat-form-field>
+           </div>
+           <div *ngIf="flag != 3 && flag != 2" class="form">
+            <mat-form-field>
+                <input matInput placeholder="Nova lozinka" name="password" [disabled]="flag==3" [(ngModel)]="this.data.password" />
+            </mat-form-field>
+           </div>
+           <div *ngIf="isAdmin()" class="form">
+            <mat-form-field class="form-field input">
+                <mat-select [compareWith]="compare" placeholder="Uloga" name="role" [(ngModel)]="data.role" [disabled]="flag==3" required>
+                    <mat-option *ngFor="let role of roles" [value]="role">
+                        {{role}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+           
+        </form>
+    
+        <div class="mat-dialog-actions">
+            <button matButton class="btn btn-primary" *ngIf="flag == 1" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="add()">Sačuvaj</button>
+            <button matButton class="btn btn-primary" *ngIf="flag == 2" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Modifikuj</button>
+            <button matButton class="btn btn-danger" *ngIf="flag == 3" mat-dialog-close="1" (click)="delete()">Obriši</button>
+            <button matButton class="btn btn-danger" (click)="cancel()">Poništi</button>
+        </div>
+    </div>
+
+</div>
+

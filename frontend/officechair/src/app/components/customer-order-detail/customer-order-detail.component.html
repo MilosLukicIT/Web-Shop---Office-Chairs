@@ -1,13 +1,13 @@
 <div class="container mat-elavation-z8">
     <div class="card-header card-header-danger col-md-4 tableKor">
-      <h4 class="card-title" style="color: white;">Neobradjene porudžbine</h4>
+      <h4 class="card-title" style="color: white;">Porudzbine u procesu slanja</h4>
       
     </div>
     
       <mat-table #table [dataSource]="dataSource" class="mat-cell">
  
         <ng-container matColumnDef="dateOfCreation">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Datum</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Datum porucivanja</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.dateOfCreation }}</mat-cell>
         </ng-container>
     
@@ -17,12 +17,12 @@
         </ng-container>
  
         <ng-container matColumnDef="employee">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Zaposleni</mat-header-cell> 
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Poslato</mat-header-cell> 
           <mat-cell *matCellDef="let row">
                 
                 
-            <div *ngIf="row.employee != null; else noEmployee">{{ row.employee.name }} {{ row.employee.surname}}</div>
-            <ng-template #noEmployee> Niko nije preuzeo slanje</ng-template>
+            <div *ngIf="row.sent != null || row.sent == true; else noEmployee">Poslato</div>
+                <ng-template #noEmployee> Nije poslato</ng-template>
         </mat-cell> 
         </ng-container>
     
@@ -36,13 +36,6 @@
             
           </mat-header-cell>
           <mat-cell *matCellDef="let row; let i = index">
-          <button *ngIf="isAdmin()" mat-icon-button class="delete-button" (click)="openDialog(3)">
-            <i class="material-icons">delete</i>
-        </button>
-
-        <button *ngIf="row.employee == null" mat-icon-button class="take-button" (click)="takeOrder(row)">
-            <i class="material-icons">group_add</i>
-        </button>
 
         <button mat-icon-button class="take-button" routerLink="/order-details/{{row.orderId}}">
           <i class="material-icons">search</i>
@@ -66,7 +59,7 @@
         <mat-table #table [dataSource]="dataSourceDone" class="mat-cell">
        
           <ng-container matColumnDef="dateOfCreation">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Datum</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Datum porucivanja</mat-header-cell>
             <mat-cell *matCellDef="let row">{{ row.dateOfCreation }}</mat-cell>
           </ng-container>
           <ng-container matColumnDef="customer"> 
@@ -74,12 +67,11 @@
             <mat-cell *matCellDef="let row">{{ row.customer.name }} {{row.customer.surname}}</mat-cell> 
           </ng-container>
           <ng-container matColumnDef="employee"> 
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Zaposleni</mat-header-cell> 
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Poslato</mat-header-cell> 
             <mat-cell *matCellDef="let row">
                 
-                
-                <div *ngIf="row.employee != null; else noEmployee">{{ row.employee.name }} {{ row.employee.surname}}</div>
-                <ng-template #noEmployee> Niko nije preuzeo slanje</ng-template>
+                <div *ngIf="row.sent != null || row.sent == true; else noEmployee">Poslato</div>
+                <ng-template #noEmployee> Nije poslato</ng-template>
             </mat-cell> 
             
           </ng-container>
@@ -94,9 +86,6 @@
               
             </mat-header-cell>
             <mat-cell *matCellDef="let row; let i = index">
-            <button *ngIf="isAdmin()" mat-icon-button class="delete-button" (click)="openDialog(3)">
-              <i class="material-icons">delete</i>
-          </button>
           <button mat-icon-button class="take-button" routerLink="/order-details/{{row.orderId}}">
             <i class="material-icons">search</i>
           </button>

@@ -1,1 +1,30 @@
-<p>article-brand-dialog works!</p>
+<div class="main-content">
+
+    <div class="container" style="text-align: center;">
+        <h3 mat-dialog-title *ngIf="flag == 1">Dodavanje brenda</h3>
+        <h3 mat-dialog-title *ngIf="flag == 2">Ažuriranje brenda: {{data.nameOfBrand}}</h3>
+        <h3 mat-dialog-title *ngIf="flag == 3">Brisanje brenda: {{data.nameOfBrand}}</h3>
+    
+        <form class="mat-dialog-content" #formControl="ngForm" style="text-align: center;">
+           <div class="form">
+                <mat-form-field>
+                    <input matInput placeholder="Naziv brenda" name="nameOfBrand" [disabled]="flag==3" [(ngModel)]="this.data.nameOfBrand" required />
+                </mat-form-field>
+                
+            </div>
+            <div class="form">
+                <mat-form-field>
+                    <input matInput placeholder="Država" name="countryOfBrand" [disabled]="flag==3" [(ngModel)]="this.data.countryOfBrand" required />
+                </mat-form-field>
+            </div>
+        </form>
+    
+        <div class="mat-dialog-actions">
+            <button matButton class="btn btn-primary" *ngIf="flag == 1" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="add()">Sačuvaj</button>
+            <button matButton class="btn btn-primary" *ngIf="flag == 2" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Modifikuj</button>
+            <button matButton class="btn btn-danger" *ngIf="flag == 3" mat-dialog-close="1" (click)="delete()">Obriši</button>
+            <button matButton class="btn btn-danger" (click)="cancel()">Poništi</button>
+        </div>
+    </div>
+
+</div>

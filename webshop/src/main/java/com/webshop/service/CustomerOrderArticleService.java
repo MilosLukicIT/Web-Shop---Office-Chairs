@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.webshop.model.CustomerOrder;
 import com.webshop.model.CustomerOrderArticle;
 import com.webshop.repository.CustomerOrderArticleRepository;
 
@@ -25,6 +26,10 @@ public class CustomerOrderArticleService {
 	
 	public Optional<CustomerOrderArticle> getCustomerOrderArticleById(String customerOrderArticleId){
 		return customerOrderArticleRepo.findById(customerOrderArticleId);
+	}
+	
+	public List<CustomerOrderArticle> getCustomerOrderArticleByCustomerOrder(CustomerOrder customerOrder){
+		return customerOrderArticleRepo.findByCustomerOrderArticle(customerOrder);
 	}
 	
 	public CustomerOrderArticle addCustomerOrderArticle(CustomerOrderArticle customerOrderArticle) {

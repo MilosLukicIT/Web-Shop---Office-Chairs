@@ -37,9 +37,13 @@ public class CustomerOrder {
 	private Date dateOfCreation;
 	@Column(unique = false, columnDefinition = "NUMERIC")
 	private Float totalBill;
+	@Column(unique = false, nullable = true)
 	private Boolean payed;
+	@Column(unique = false, nullable = true)
 	private Date timeOfPayment;
+	@Column(unique = false, nullable = true)
 	private Boolean sent;
+	@Column(unique = false, nullable = true)
 	private Date timeWhenSent;
 	
 	

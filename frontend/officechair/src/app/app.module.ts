@@ -29,6 +29,10 @@ import {MatIconModule} from "@angular/material/icon";
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
+import {MatTableModule} from '@angular/material/table';
+import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
+import { CustomerOrderDetailComponent } from './components/customer-order-detail/customer-order-detail.component'
+import { NgxStripeModule } from 'ngx-stripe';
 
 
 @NgModule({
@@ -49,7 +53,9 @@ import { environment } from 'src/environments/environment';
     AdminComponent,
     ArticleDialogComponent,
     ArticleTypeDialogComponent,
-    ArticleBrandDialogComponent
+    ArticleBrandDialogComponent,
+    UserDialogComponent,
+    CustomerOrderDetailComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,7 +69,9 @@ import { environment } from 'src/environments/environment';
     MatDialogModule,
     MatIconModule,
     provideFirebaseApp(() => initializeApp(environment.fireBaseConfig)),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    MatTableModule,
+    NgxStripeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

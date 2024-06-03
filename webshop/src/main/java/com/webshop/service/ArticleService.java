@@ -23,8 +23,16 @@ public class ArticleService {
 
 	private final ArticleRepository articleRepo;
 	
-	public List<Article> getAllArticles(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, "nameOfArticle"));
+	public List<Article> getAllArticles(int page, int size, int order, String orderByValue) {
+		
+		Pageable pageable;
+		
+		
+		if(order == 1) {
+			pageable = PageRequest.of(page, size, Sort.by(Direction.ASC, orderByValue));
+		}
+		else
+			pageable = PageRequest.of(page, size, Sort.by(Direction.DESC, orderByValue));
 		Page<Article> articles = articleRepo.findAll(pageable);
 		
 		return articles.getContent();

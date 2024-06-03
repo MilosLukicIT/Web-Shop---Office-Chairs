@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ArticleService } from '../../services/article.service'
-import { Router } from '@angular/router';
 import * as _ from 'underscore';
 import { CartService } from '../../services/cart.service';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -25,11 +24,11 @@ export class MenuComponent implements OnInit {
   count = 0;
   pageNumber = 1;
   numberPerPage = new FormControl(3);
-  items = 5;
+  items = 3;
 
 
 
-  constructor(public user: UserService, private articleService: ArticleService, private router: Router, 
+  constructor(public user: UserService, private articleService: ArticleService,
               private cartService: CartService, private auth: AuthenticationService, private dialog: MatDialog) {
                 this.numberPerPage.valueChanges.subscribe(val => {
                   if(val != null)
@@ -93,7 +92,7 @@ export class MenuComponent implements OnInit {
   }
 
   public nextPage(){
-    console.log(this.sortedProduct.length >= this.items)
+    console.log(this.sortedProduct.length == this.items)
     if(this.sortedProduct.length == this.items){
       this.pageNumber++;
       this.loadData();

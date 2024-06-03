@@ -1,52 +1,68 @@
-<!-- <section class="page-section" id="order-details">
-    <div class="container col-md-5" style="border: solid 1px; margin-top: 25px; margin-bottom: 8%; background-color:thistle">
-        <ng-container *ngFor="let order of order">
-            <h2 class="text-center mt-0">Poručeno: {{order.timeOfOrder}}</h2>
-            <hr class="divider my-4">
-            <div class="row my-4">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Kontak informacije</h5>
-                            <p class="card-text">{{order.first_name}} <br>
-                                {{order.contact}} <br>
-                                {{order.address}} <br>
-                                {{order.email}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Račun</h5>
-                            <p class="card-text">{{total}}.00rsd <br><br><br></p>
-
-                        </div>
-                    </div>
-                </div>
+<section class="h-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-10 col-xl-8">
+          <div class="card" style="border-radius: 10px;">
+            <div class="card-header px-4 py-5">
+              <h5 class="text-muted mb-0">Porudžbina za <span style="color: #a8729a;">{{order.customer.name}} {{order.customer.surname}}</span>!</h5>
+              <button class="btn btn-primary" style="margin-top: 15px;" *ngIf="order.sent != true" (click)="send()">Gotovo </button>
             </div>
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Vrsta</th>
-                            <th scope="col">Ime</th>
-                            <th scope="col">Količina</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let item of order.items">
-                            <tr *ngIf="item.quantity > 0">
-                                <td scope="row">{{ item.name }}</td>
-                                <td scope="row">{{ item.price }}</td>
-                                <td scope="row">{{ item.quantity }}</td>
-                            </tr>
-                        </ng-container>
-
-                    </tbody>
-                </table>
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="lead fw-normal mb-0" style="color: #a8729a;">Artikli</p>
+                <p class="small text-muted mb-0">Broj artikala: {{numberOfArticle}}</p>
+              </div>
+              <div *ngFor="let items of this.orderArticles" class="card shadow-0 border mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="{{items.article.imageUrl}}"
+                        class="img-fluid" alt="Chair">
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0">{{items.article.nameOfArticle}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">{{items.article.colorOfArticle}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">{{items.article.manufacturerOfArticle}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">Kolicina: {{items.amountOfArticle}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">U skladistu: {{items.article.availableAmountOfArticle}}</p>
+                    </div>
+                  </div>
+                  <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                </div>
+              </div>
+  
+              <div class="d-flex justify-content-between pt-2">
+                <p class="fw-bold mb-0">Detalji dostave</p>
+                <p class="text-muted mb-0"><span class="fw-bold me-4">Stanje porudzbine</span> </p>
+              </div>
+  
+              <div class="d-flex justify-content-between pt-2">
+                <p class="text-muted mb-0">Adresa: {{order.customer.adress}}</p>
+                <p *ngIf="isAdmin()" class="text-muted mb-0"><span class="fw-bold me-4">Preuzeo: </span>{{order.employee.name}}  {{order.employee.surname}}</p>
+              </div>  
+              <div class="d-flex justify-content-between mb-5">
+                <p class="text-muted mb-0">Kontakt telefon: {{order.customer.contactNumber}}</p>
+                <p *ngIf="order.sent == true" class="text-muted mb-0"><span class="fw-bold me-4">Datum slanja: </span>{{order.timeWhenSent}}</p>
+              </div>
+              <div class="d-flex justify-content-between">
+                <p class="text-muted mb-0">Datum porucivanja: {{order.dateOfCreation}}</p>
+                <p *ngIf="order.sent == true" class="text-muted mb-2"><span class="fw-bold me-4">Poslato:</span>  Da</p>
+              </div>
             </div>
-        </ng-container>
+            <div class="card-footer border-0 px-4 py-5"
+              style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+              <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Ukupno: <span class="h2 mb-0 ms-2">{{total}} rsd</span></h5>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</section> -->
+  </section>

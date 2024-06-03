@@ -10,6 +10,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { OrderComponent } from './components/order/order.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CustomerOrderDetailComponent } from './components/customer-order-detail/customer-order-detail.component';
 
 const routes: Routes = [
   {path: "", component: HomepageComponent},
@@ -18,10 +19,11 @@ const routes: Routes = [
   {path: "about", component: AboutComponent},
   {path: "gallery", component: GalleryComponent},
   {path: "menu", component: MenuComponent},
-  {path: "order", component: OrderComponent},
+  {path: "cart", component: OrderComponent},
   {path: "orders", component: ViewOrdersComponent},
   {path: "user-profile", component: UserProfileComponent},
-  {path: "orders/details/:id", component: DetailsOrderComponent}
+  {path: "order-details/:id", component: DetailsOrderComponent},
+  {path: "myOrders", component: CustomerOrderDetailComponent}
 ];
 
 @NgModule({

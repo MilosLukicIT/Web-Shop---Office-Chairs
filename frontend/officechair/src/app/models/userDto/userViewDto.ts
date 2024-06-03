@@ -1,10 +1,10 @@
 export class UserViewDto{
-    userId! : String
-	name! : String
-	surname! : String
-	adress! : String
-	username! : String
-	role! : String
-	email! : String
-	contactNumber! : String
+    userId! : string
+	name! : string
+	surname! : string
+	adress! : string
+	username! : string
+	role! : string
+	email! : string
+	contactNumber! : string
 }

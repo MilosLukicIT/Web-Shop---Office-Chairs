@@ -2,12 +2,12 @@ import { User } from "../user";
 
 export class CustomerOrderViewDto {
     
-    orderId!: String;
+    orderId!: string;
 	dateOfCreation!: Date;
 	totalBill!: number;
-	payed!:Boolean;
+	payed!:boolean;
 	timeOfPayment!: Date;
-	sent!: Boolean;
+	sent!: boolean;
 	timeWhenSent!: Date;
 	
 	customer!: User;

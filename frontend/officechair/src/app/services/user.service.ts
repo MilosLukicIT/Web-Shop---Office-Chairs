@@ -23,6 +23,11 @@ export class UserService {
     return this.http.post(api, user, {responseType: 'text'}).pipe(catchError(this.handleError));
   }
 
+  createEmployee(user: UserCreateDto): Observable<any> {
+    let api = `${this.apiUser}/employee`;
+    return this.http.post(api, user, {responseType: 'text'}).pipe(catchError(this.handleError));
+  }
+
 
   getAllUsers(): Observable<any> {
     return this.http.get(`${this.apiUser}`).pipe(catchError(this.handleError));

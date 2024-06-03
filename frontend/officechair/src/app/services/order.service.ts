@@ -20,7 +20,7 @@ export class OrderService {
     return this.http.get(this.apiUrl);
   }
 
-  getCustomerOrder(idCustomer: String): Observable<any> {
+  getCustomerOrderForCustomer(idCustomer: String): Observable<any> {
     return this.http.get(`${this.apiUrl}/customer/${idCustomer}`);
   }
 
@@ -28,7 +28,7 @@ export class OrderService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  addCustomerOrder(newOrder: CustomerOrderCreateDto) {
+  addCustomerOrder(newOrder: CustomerOrderCreateDto): Observable<any> {
     return this.http.post(this.apiUrl, newOrder);
   }
 

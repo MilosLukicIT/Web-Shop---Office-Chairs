@@ -1,10 +1,10 @@
-<section class="page-section " id="providers-list">
+
   <h2 class="text-center mt-0 menuTitle">Artikli</h2>
     <div class="container mainDiv ">
         
-      <a *ngIf="isAdmin()" (click)="openDialog(1)" class="btn btn-primary my-2 ">Dodaj novi proizvod</a>
+      <a *ngIf="isAdmin()" (click)="openDialog(1)" class="btn btn-primary ">Dodaj novi proizvod</a>
       <button style="margin-left: 10px;" class="btn btn-danger my-2" (click)="clearCart()">Ukloni sve iz korpe</button>
-      <select name="numberPerPage" id="numberPerPage" style="margin-left: 10px;" [formControl]="numberPerPage">
+      <select class="round" name="numberPerPage" id="numberPerPage" style="margin-left: 10px; height: 40px;" [formControl]="numberPerPage">
         <option value="3">3</option>
         <option value="6">6</option>
         <option value="9">9</option>
@@ -61,10 +61,11 @@
           </mat-card>
         </div>
       </div>
-      <div class="row fadeIn" style="margin: 10px; text-align: center; width: 100%;">
+      <div class="row fadeIn" style="margin-top: 10px; text-align: center;">
+        <div class="col-sm-5"></div>
         <a (click)="prevPage()" class="btn-arrow btn-arrow-left" title="Previous" >Previous</a>
-        <div class="col-md-1" style="margin-top: 30px;"><p class="">{{pageNumber}}</p></div>
+        <div class="col-sm-1" style="margin-top: 30px;"><p class="">{{pageNumber}}</p></div>
         
         <a (click)="nextPage()" class="btn-arrow btn-arrow-right" title="Next">Next</a></div>
     </div>
-</section>
+

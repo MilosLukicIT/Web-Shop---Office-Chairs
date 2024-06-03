@@ -7,4 +7,5 @@ export class User {
 	role! : String
 	email! : String
 	contactNumber! : String
+	password!: string;
 }

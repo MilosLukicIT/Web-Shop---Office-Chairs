@@ -9,11 +9,11 @@ import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-view-orders',
-  templateUrl: './view-orders.component.html',
-  styleUrls: ['./view-orders.component.css']
+  selector: 'app-customer-order-detail',
+  templateUrl: './customer-order-detail.component.html',
+  styleUrls: ['./customer-order-detail.component.css']
 })
-export class ViewOrdersComponent implements OnInit {
+export class CustomerOrderDetailComponent implements OnInit {
 
   displayedColumns = ['dateOfCreation', 'customer', 'employee', 'totalBill',  'actions'];
   displayedColumnsDone = ['dateOfCreation', 'customer', 'employee', 'totalBill',  'actions'];
@@ -30,10 +30,6 @@ export class ViewOrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-
-    this.user.getUserProfile(this.auth.decodeToken().id).subscribe(res => {
-      this.currentEmployee = res;
-    })
   }
 
   public isAdmin() {
@@ -43,7 +39,7 @@ export class ViewOrdersComponent implements OnInit {
 
   async loadData() {
 
-    this.orderService.getCustomerOrders().subscribe(data => {
+    this.orderService.getCustomerOrderForCustomer(this.auth.decodeToken().id).subscribe(data => {
       this.orders = data;
       this.doneOrder.pop();
       this.notDoneOrders.pop();

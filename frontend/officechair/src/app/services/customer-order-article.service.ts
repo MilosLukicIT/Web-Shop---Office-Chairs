@@ -26,6 +26,10 @@ export class CustomerOrderArticleService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
+  getOrderArticlesByOrder(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/order/${id}`);
+  }
+
   addOrderArticle(newOrderArticle: CustomerOrderArticleCreateDto) {
     return this.http.post(this.apiUrl, newOrderArticle);
   }

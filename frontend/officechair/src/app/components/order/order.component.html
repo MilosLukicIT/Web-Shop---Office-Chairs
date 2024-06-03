@@ -1,93 +1,127 @@
-<section class="page-section" id="add-provider-form">
-  <div class="container col-md-6 mainDiv">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 text-center">
-        <h2 *ngIf="!submitted" class="mt-0">Vaša korpa</h2>
-        <hr class="divider my-4">
-      </div>
-    </div>
-    <div class="row justify-content-center">
+<section class="h-100 h-custom" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <h1 style="text-align: center;">Korpa</h1>
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="card-body p-4">
 
-      <div class="row o-hidden border-0">
-        <div class="col-lg-12 text-center">
-          <div style="text-align: center;">
-            <div *ngIf="submitted" style="margin-bottom: 65%;">
-              <h1 class="mt-0 text-success" *ngIf="submitted">Vaša prudžbina je primljena i sprema se!</h1>
-            </div>
-          </div>
+            <div class="row">
 
-          
-          <p class="mt-0 alert alert-danger" *ngIf="emailError">
-            Info: {{emailErrorMsg}}
-          </p>
-          <form [formGroup]="orderForm" class="user" action="/products/add-order" method="post" *ngIf="!submitted"
-            (ngSubmit)="handleSubmit()">
-            <div class="form-group row">
-              <div class="col-sm-6 mb-3 mb-sm-0">
-                <label for="address">Adresa</label>
-                <input type="text" class="form-control form-control-user" formControlName="address" required>
-                <span class="text-danger" *ngIf="address && address.errors?.['required'] && address.touched">Potrebna je
-                  adresa</span>
-              </div>
-              <div class="col-sm-6">
-                <label for="contact">Kontakt telefon</label>
-                <input type="text" class="form-control form-control-user" formControlName="contact"  required>
-                <span class="text-danger" *ngIf="contact && contact.errors?.['required'] && contact.touched">Potreban je
-                  kontakt telefon</span>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-12 mb-3 mb-sm-0">
-                <label for="inputUserInfo"></label>
-                <div class="col-sm-12">
-                  <div class="card" style="margin-left: 25%; margin-right: 25%;">
+              <div class="col-lg-7">
+                <a href="menu"><mat-icon >keyboard_backspace</mat-icon></a><h5 class="mb-3"> 
+                  <a href="menu" class="text-body">Nastavi kupovinu</a></h5>
+                <hr>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <div>
+                    <p class="mb-1">Vaša korpa</p>
+                  </div>
+                </div>
+
+                <div *ngFor="let items of orderItems">
+                  <div class="card mb-3">
                     <div class="card-body">
-                      <h5 class="card-title">Kontak informacije</h5>
-                      <p *ngIf="currentUser != null" class="card-text">{{currentUser.name}}  
-                        {{currentUser.surname}} <br>
-                        {{currentUser.email}}
-                      </p>
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                          <div>
+                            <img
+                              src="{{items.article.imageUrl}}"
+                              class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                          </div>
+                          <div class="ms-3">
+                            <h5>{{items.article.nameOfArticle}}</h5>
+                            <p class="small mb-0">{{items.article.articleType.nameOfType}}</p>
+                          </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center">
+                          <div style="width: 80px;">
+                            <h5 class="fw-normal mb-0">{{items.amountOfArticle}} kom</h5>
+                          </div>
+                          <div style="width: 100px;">
+                            <h5 class="mb-0">{{items.article.priceOfArticle - 
+                              (items.article.priceOfArticle * items.article.discount/100)}} rsd.</h5>
+                          </div>
+                          <button style="background-color: rgb(214, 142, 142); border-radius: 10px; border-color: rgb(147, 123, 123);" (click)="removeItem(items.article.articleId)"><mat-icon style="margin-bottom: 10px; color: aliceblue;">minimize</mat-icon></button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+               </div>
+                
+
               </div>
-              <div class="col-sm-12" style="margin-top: 15px;margin-bottom: 15px;">
-                <div class="card col-md-3" style="margin-left: 38%; margin-right: 25%; height: 100px;">
+              <div class="col-lg-5" *ngIf="isLoggedIn()">
+
+                <div class="card bg-primary text-white rounded-3">
                   <div class="card-body">
-                    <h5 class="card-title">Račun</h5>
-                    <p class="card-text">{{total}}.00rsd <br><br><br></p>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <h5 class="mb-0">Detalji kartice</h5>
+                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                        class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
+                    </div>
+
+                    <p class="small mb-2">Tip kartice</p>
+                    <mat-icon>payments</mat-icon>
+                    <mat-icon style="margin-left: 10px;">credit_card</mat-icon>
+
+                    <form class="mt-4">
+                      <div data-mdb-input-init class="form-outline form-white mb-4">
+                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                          placeholder="Ime na kartici" />
+                        <label class="form-label" for="typeName">Ime na kartici</label>
+                      </div>
+
+                      <div data-mdb-input-init class="form-outline form-white mb-4">
+                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                          placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                        <label class="form-label" for="typeText">Broj kartice</label>
+                      </div>
+
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div data-mdb-input-init class="form-outline form-white">
+                            <input type="text" id="typeExp" class="form-control form-control-lg"
+                              placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" />
+                            <label class="form-label" for="typeExp">Važi do</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div data-mdb-input-init class="form-outline form-white">
+                            <input type="password" id="typeText" class="form-control form-control-lg"
+                              placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
+                            <label class="form-label" for="typeText">CVV</label>
+                          </div>
+                        </div>
+                      </div>
+
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between">
+                      <p class="mb-2">Ukupno pre popusta</p>
+                      <p class="mb-2">{{total}} rsd.</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <p class="mb-2">Ukupno sa popustom</p>
+                      <p class="mb-2">{{totalWithDiscount}} rsd.</p>
+                    </div>
+
+                    <button  type="button" data-mdb-ripple-init class="btn btn-info btn-block btn-lg" (click)="checkout()">
+                      <div class="d-flex justify-content-between">
+                        <span>Plati <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                      </div>
+                    </button>
 
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-hover table-bordered">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Artikl</th>
-                    <th scope="col">Cena</th>
-                    <th scope="col">Količina</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngFor="let item of orderItems">
-                    <tr *ngIf="item.amountOfArticle > 0">
-                      <td scope="row">{{ item.article.nameOfArticle }}, {{item.article.articleType.nameOfType}}</td>
-                      <td scope="row">{{ item.article.priceOfArticle }}</td>
-                      <td scope="row">{{ item.amountOfArticle }}</td>
-                      <td scope="row"><button type="button" class="btn btn-danger"
-                          (click)="removeItem(item.article.articleId)">-</button></td>
-                    </tr>
-                  </ng-container>
 
-                </tbody>
-              </table>
+              </div>
+
             </div>
-            <button [disabled]="orderForm.invalid || cartService.itemsCount() == 0 "
-              class="btn btn-primary btn-lg btn-block" type="submit"
-              style="margin-top: 25px; margin-bottom: 10px;">Poruči</button>
-          </form>
+
+          </div>
         </div>
       </div>
     </div>

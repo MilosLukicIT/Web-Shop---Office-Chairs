@@ -1,6 +1,7 @@
 package com.webshop.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.webshop.model.CustomerOrder;
 import com.webshop.model.CustomerOrderArticle;
 import com.webshop.model.dto.customer_order_article.CustomerOrderArticleCreationDto;
 import com.webshop.model.dto.customer_order_article.CustomerOrderArticleUpdateDto;
 import com.webshop.model.dto.customer_order_article.CustomerOrderArticleViewDto;
 import com.webshop.service.CustomerOrderArticleService;
+import com.webshop.service.CustomerOrderService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +37,7 @@ public class CustomerOrderArticleController {
 	
 	private final ModelMapper mapper;
 	private final CustomerOrderArticleService customerOrderArticleService;
+	private final CustomerOrderService customerOrderService;
 	
 	@GetMapping
 	public ResponseEntity<?> getAllCustomerOrderArticlePage() {
@@ -64,6 +68,19 @@ public class CustomerOrderArticleController {
 		{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity doesn't exist");
 		}
+	}
+	
+	@GetMapping("/order/{orderId}")
+	public ResponseEntity<?> getCustomerOrderArticleByCustomerOrder(@PathVariable String orderId) {
+		Optional<CustomerOrder> customerOrder =  customerOrderService.getCustomerOrderById(orderId);
+		if(!customerOrder.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order doesn't exist!");
+		}
+		List<CustomerOrderArticle> orderArticles = customerOrderArticleService.getCustomerOrderArticleByCustomerOrder(customerOrder.get());
+		
+		if(!orderArticles.isEmpty()) {
+			return ResponseEntity.ok(orderArticles);
+		} else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no articles for this order!");
 	}
 	
 	@PostMapping
