@@ -42,8 +42,12 @@ public class StripeController {
 	private CustomerOrderService orderService;
 	
 	
-	public StripeController(@Value("${custom.stripe.secret}") String secretKey) {
+	private String webhookKey;
+	
+	
+	public StripeController(@Value("${custom.stripe.secret}") String secretKey, @Value("${custom.stripe.webhook.secret}") String webhookKey) {
 		Stripe.apiKey = secretKey;
+		this.webhookKey = webhookKey;
 	}
 	
 	@PostMapping
@@ -92,7 +96,7 @@ public class StripeController {
 		
 		Event event = null;
         try {
-          event = Webhook.constructEvent(payload, sigHeader, "whsec_NyBFV7K8FqjRqilGFJixqGlJkO3arCqB");
+          event = Webhook.constructEvent(payload, sigHeader, webhookKey);
         } catch (SignatureVerificationException e) {
           System.out.println("Failed signature verification");
           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
