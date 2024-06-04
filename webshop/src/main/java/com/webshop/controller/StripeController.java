@@ -133,45 +133,6 @@ public class StripeController {
 	       default:
 	         System.out.println("Unhandled event type: " + event.getType());
 	     }
-		
-		
-		
-		
-		
-//		String endpointSecret = "";
-//		Event e = null;
-//		
-////		String a = event.toString();
-//		try {
-//			e = ApiResource.GSON.fromJson(event.toString(), Event.class); 
-//        } catch (JsonSyntaxException ex) {
-//            // Invalid payload
-////            System.out.println("⚠️  Webhook error while parsing basic request.");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//		
-//		try {
-//            e = Webhook.constructEvent(
-//                a, sigHeader, endpointSecret
-//            );
-//        } catch (SignatureVerificationException ex) {
-//            // Invalid signature
-//            System.out.println("⚠️  Webhook error while validating signature.");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//		
-//		
-//		EventDataObjectDeserializer dataObjectDeserializer = e.getDataObjectDeserializer();
-//        StripeObject stripeObject = null;
-//        if (dataObjectDeserializer.getObject().isPresent()) {
-//            stripeObject = dataObjectDeserializer.getObject().get();
-//        } else {
-//            // Deserialization failed, probably due to an API version mismatch.
-//            // Refer to the Javadoc documentation on `EventDataObjectDeserializer` for
-//            // instructions on how to handle this case, or return an error here.
-//        }
-		
-	     // Handle the event
 	     
 
 	     return ResponseEntity.ok().build();
