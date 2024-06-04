@@ -33,6 +33,8 @@ import {MatTableModule} from '@angular/material/table';
 import { UserDialogComponent } from './components/dialogs/user-dialog/user-dialog.component';
 import { CustomerOrderDetailComponent } from './components/customer-order-detail/customer-order-detail.component'
 import { NgxStripeModule } from 'ngx-stripe';
+import { CheckoutSuccessComponent } from './components/checkout-success/checkout-success.component';
+import { CheckoutCancelComponent } from './components/checkout-cancel/checkout-cancel.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { NgxStripeModule } from 'ngx-stripe';
     ArticleTypeDialogComponent,
     ArticleBrandDialogComponent,
     UserDialogComponent,
-    CustomerOrderDetailComponent
+    CustomerOrderDetailComponent,
+    CheckoutSuccessComponent,
+    CheckoutCancelComponent
   ],
   imports: [
     BrowserAnimationsModule,

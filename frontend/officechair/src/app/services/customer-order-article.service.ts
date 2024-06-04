@@ -30,7 +30,7 @@ export class CustomerOrderArticleService {
     return this.http.get(`${this.apiUrl}/order/${id}`);
   }
 
-  addOrderArticle(newOrderArticle: CustomerOrderArticleCreateDto) {
+  addOrderArticle(newOrderArticle: CustomerOrderArticleCreateDto): Observable<any> {
     return this.http.post(this.apiUrl, newOrderArticle);
   }
 

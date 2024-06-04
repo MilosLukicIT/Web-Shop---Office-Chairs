@@ -45,6 +45,8 @@ public class CustomerOrder {
 	private Boolean sent;
 	@Column(unique = false, nullable = true)
 	private Date timeWhenSent;
+	@Column(unique = false, nullable = true)
+	private String paymentSessionId;
 	
 	
 	@ManyToOne

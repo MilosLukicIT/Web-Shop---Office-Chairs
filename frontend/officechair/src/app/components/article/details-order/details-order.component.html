@@ -5,7 +5,7 @@
           <div class="card" style="border-radius: 10px;">
             <div class="card-header px-4 py-5">
               <h5 class="text-muted mb-0">Porudžbina za <span style="color: #a8729a;">{{order.customer.name}} {{order.customer.surname}}</span>!</h5>
-              <button class="btn btn-primary" style="margin-top: 15px;" *ngIf="order.sent != true" (click)="send()">Gotovo </button>
+              <button class="btn btn-primary" style="margin-top: 15px;" *ngIf="order.sent == false && isAdmin()" (click)="send()">Gotovo </button>
             </div>
             <div class="card-body p-4">
               <div class="d-flex justify-content-between align-items-center mb-4">
@@ -43,11 +43,12 @@
                 <p class="fw-bold mb-0">Detalji dostave</p>
                 <p class="text-muted mb-0"><span class="fw-bold me-4">Stanje porudzbine</span> </p>
               </div>
-  
-              <div class="d-flex justify-content-between pt-2">
+              <div class="d-flex justify-content-between pt-2"><p class="text-muted mb-0">Adresa: {{order.customer.adress}}</p></div>
+              
+              <!-- <div class="d-flex justify-content-between pt-2">
                 <p class="text-muted mb-0">Adresa: {{order.customer.adress}}</p>
-                <p *ngIf="isAdmin()" class="text-muted mb-0"><span class="fw-bold me-4">Preuzeo: </span>{{order.employee.name}}  {{order.employee.surname}}</p>
-              </div>  
+                <p *ngIf="isAdmin();" class="text-muted mb-0"><span class="fw-bold me-4">Preuzeo: </span>{{order.employee.name}}  {{order.employee.surname}}</p>
+              </div>   -->
               <div class="d-flex justify-content-between mb-5">
                 <p class="text-muted mb-0">Kontakt telefon: {{order.customer.contactNumber}}</p>
                 <p *ngIf="order.sent == true" class="text-muted mb-0"><span class="fw-bold me-4">Datum slanja: </span>{{order.timeWhenSent}}</p>

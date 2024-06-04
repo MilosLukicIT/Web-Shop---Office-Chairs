@@ -11,6 +11,9 @@ import { User } from 'src/app/models/user';
 import { CustomerOrderViewDto } from 'src/app/models/customerOrderDto/customerOrderViewDto';
 import { CustomerOrderArticleService } from 'src/app/services/customer-order-article.service';
 import { CustomerOrderArticleCreateDto } from 'src/app/models/customerOrderArticleDto/customerOrderArticleCreateDto';
+import { loadStripe } from '@stripe/stripe-js';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-order',
@@ -24,15 +27,22 @@ export class OrderComponent implements OnInit {
   totalWithDiscount = 0;
   newOrder = new CustomerOrderCreateDto();
   createdOrder = new CustomerOrderViewDto(); 
+  listId = [new CustomerOrderArticleViewDto]
 
   currentUser!: User;
-  
+  stripePromise = loadStripe(environment.stripeKey);
+
+
   constructor(public fb: FormBuilder, public user: UserService, public cartService: CartService, 
-    public orderService: OrderService, public auth: AuthenticationService, public orderArticleService: CustomerOrderArticleService) {
+    public orderService: OrderService, public auth: AuthenticationService, 
+    public orderArticleService: CustomerOrderArticleService,
+    private http: HttpClient) {
     
    }
 
   ngOnInit(): void {
+
+
     this.loadData();
     this.orderItems = this.cartService.getCart();
     this.getUserInfo();
@@ -84,26 +94,43 @@ export class OrderComponent implements OnInit {
     return this.auth.isLoggedIn;
   }
 
-checkout(){
+async checkout(){
 
   this.newOrder.customer = this.currentUser;
   this.newOrder.dateOfCreation = new Date();
   this.newOrder.totalBill = this.totalWithDiscount;
 
-  this.orderService.addCustomerOrder(this.newOrder).subscribe(res => {
+  this.orderService.addCustomerOrder(this.newOrder).subscribe(async res => {
 
     this.createdOrder = res;
-
+    this.listId.pop();
     this.orderItems.forEach(e => {
 
       if(e != null) {
         e.customerOrderArticle = this.createdOrder;
-        this.orderArticleService.addOrderArticle(e).subscribe();
+        this.orderArticleService.addOrderArticle(e).subscribe(res => {
+          console.log(res);
+          this.listId.push(res);
+        });
       }
     });
+  
+    const stripe = await this.stripePromise;
 
-    this.cartService.clearCart();
-    this.loadData();
+    this.http
+      .post(`${environment.apiPayment}`, {
+        currency: "eur",
+        successUrl: `http://localhost:4200/successPayment`,
+        cancelUrl: 'http://localhost:4200/cancelPayment',
+        amount: this.totalWithDiscount,
+        orderId: this.createdOrder.orderId
+      })
+      .subscribe((data: any) => {
+        // I use stripe to redirect To Checkout page of Stripe platform
+        stripe!.redirectToCheckout({
+          sessionId: data.sessionId,
+        });
+      });
     
     
   })

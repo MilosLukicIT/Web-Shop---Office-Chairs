@@ -11,6 +11,8 @@ export const environment = {
   apiUserLogin: 'http://localhost:8080/auth/login',
   apiArticleBrand: 'http://localhost:8080/articleBrand',
   apiArticleType: 'http://localhost:8080/articleType',
+  apiPayment: 'http://localhost:8080/payment',
+  stripeKey: 'pk_test_51PIa4RJgn0NMoXTZsh6hjw2AecPikJ90ebqqRrXHXskgnqqF93iiJMWymNUg00t7lHxLJXD91qsSNyXZ0exjkVbC00EF5v0aoJ',
 
   fireBaseConfig: {
     apiKey: "AIzaSyDAlsay3Yno6QukQy_jBkM1u33bRXNJTsM",

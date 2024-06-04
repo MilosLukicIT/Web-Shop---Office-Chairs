@@ -10,4 +10,5 @@ import com.webshop.model.User;
 public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, String> {
 
 	List<CustomerOrder> findByCustomer(User customer);
+	List<CustomerOrder> findByPaymentSessionId(String paymentSessionId);
 }

@@ -11,6 +11,8 @@ import { OrderComponent } from './components/order/order.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { CustomerOrderDetailComponent } from './components/customer-order-detail/customer-order-detail.component';
+import { CheckoutSuccessComponent } from './components/checkout-success/checkout-success.component';
+import { CheckoutCancelComponent } from './components/checkout-cancel/checkout-cancel.component';
 
 const routes: Routes = [
   {path: "", component: HomepageComponent},
@@ -23,7 +25,10 @@ const routes: Routes = [
   {path: "orders", component: ViewOrdersComponent},
   {path: "user-profile", component: UserProfileComponent},
   {path: "order-details/:id", component: DetailsOrderComponent},
-  {path: "myOrders", component: CustomerOrderDetailComponent}
+  {path: "myOrders", component: CustomerOrderDetailComponent},
+  {path: "successPayment", component: CheckoutSuccessComponent},
+  {path: "cancelPayment", component: CheckoutCancelComponent}
+
 ];
 
 @NgModule({
