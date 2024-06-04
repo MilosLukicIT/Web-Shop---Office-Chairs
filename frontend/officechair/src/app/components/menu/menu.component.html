@@ -10,6 +10,14 @@
         <option value="9">9</option>
         <option value="12">15</option>
       </select>
+      <select class="round" name="sortValue" id="sortValue" style="margin-left: 10px; height: 40px;" [formControl]="sortValue">
+        <option value="nameOfArticle">Naziv</option>
+        <option value="priceOfArticle">Cena</option>
+      </select>
+      <select class="round" name="sortDirection" id="sortDirection" style="margin-left: 10px; height: 40px;" [formControl]="sortDirection">
+        <option value="1">Uzlazno</option>
+        <option value="0">Silazno</option>
+      </select>
       <div class="row fadeIn " style="margin: 10px; ">
         <div class="col-md-4 " *ngFor="let articles of sortedProduct">
         <mat-card class="example-card ">

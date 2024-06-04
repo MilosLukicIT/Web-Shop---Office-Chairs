@@ -15,8 +15,8 @@ export class ArticleService {
   apiUrl = environment.apiArticle;
   constructor(private http: HttpClient) { }
 
-  getArticles(page: number, size: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}?page=${page}&size=${size}`);
+  getArticles(page: number, size: number, sortOrder: number, orderValue: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}?page=${page}&size=${size}&order=${sortOrder}&orderByValue=${orderValue}`);
   }
 
   getOneArticle(id: String): Observable<any> {

@@ -24,7 +24,11 @@ export class MenuComponent implements OnInit {
   count = 0;
   pageNumber = 1;
   numberPerPage = new FormControl(3);
+  sortValue = new FormControl('nameOfArticle');
+  sortDirection = new FormControl(1);
   items = 3;
+  sortV = 'nameOfArticle';
+  sortDirec = 1;
 
 
 
@@ -34,6 +38,24 @@ export class MenuComponent implements OnInit {
                   if(val != null)
                     {
                       this.items = val;
+                      this.loadData();
+                    }
+                    
+                })
+
+                this.sortValue.valueChanges.subscribe(val => {
+                  if(val != null)
+                    {
+                      this.sortV = val;
+                      this.loadData();
+                    }
+                    
+                })
+
+                this.sortDirection.valueChanges.subscribe(val => {
+                  if(val != null)
+                    {
+                      this.sortDirec = val;
                       this.loadData();
                     }
                     
@@ -62,7 +84,7 @@ export class MenuComponent implements OnInit {
   }
 
   loadData() {
-    this.articleService.getArticles(this.pageNumber-1, this.items).subscribe(data => {
+    this.articleService.getArticles(this.pageNumber-1, this.items, this.sortDirec, this.sortV).subscribe(data => {
       this.products = data;
       this.sortedProduct = this.products;
     },(error: any) => {

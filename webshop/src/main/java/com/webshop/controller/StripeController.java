@@ -85,8 +85,6 @@ public class StripeController {
 	    	    String w;
 	    	    w = event.getData().toString().substring(12, 78);
 	    	    orderService.updateCustomerOrderPayment(w);
-	    	   //Get order by session iD (event.getData().getId())
-	    	   //updateOrder.setPaid(LocalDate.now())
 		         // Then define and call a function to handle the event payment_intent.succeeded
 		         break;
 		       }
