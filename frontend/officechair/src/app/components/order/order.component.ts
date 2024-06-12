@@ -126,7 +126,6 @@ async checkout(){
         orderId: this.createdOrder.orderId
       })
       .subscribe((data: any) => {
-        // I use stripe to redirect To Checkout page of Stripe platform
         stripe!.redirectToCheckout({
           sessionId: data.sessionId,
         });

@@ -30,13 +30,23 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>Ukupan račun</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ row.totalBill }}</mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef="paid">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Plaćeno</mat-header-cell> 
+          <mat-cell *matCellDef="let row">
+                
+                
+            <div *ngIf=" row.payed == true; else noEmployee">{{row.timeOfPayment}}</div>
+                <ng-template #noEmployee> Nije plaćeno</ng-template>
+        </mat-cell> 
+        </ng-container>
    
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef>
             
           </mat-header-cell>
           <mat-cell *matCellDef="let row; let i = index">
-          <button *ngIf="isAdmin()" mat-icon-button class="delete-button" (click)="openDialog(3)">
+          <button *ngIf="isAdmin()" mat-icon-button class="delete-button" (click)="delete(row.orderId)">
             <i class="material-icons">delete</i>
         </button>
 
@@ -88,13 +98,23 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header>Ukupan račun</mat-header-cell>
             <mat-cell *matCellDef="let row">{{ row.totalBill }}</mat-cell>
           </ng-container>
+
+          <ng-container matColumnDef="paid">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Plaćeno</mat-header-cell> 
+            <mat-cell *matCellDef="let row">
+                  
+                  
+              <div *ngIf=" row.payed == true; else noEmployee">{{row.timeOfPayment}}</div>
+                  <ng-template #noEmployee> Nije plaćeno</ng-template>
+          </mat-cell> 
+          </ng-container>
        
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef>
               
             </mat-header-cell>
             <mat-cell *matCellDef="let row; let i = index">
-            <button *ngIf="isAdmin()" mat-icon-button class="delete-button" (click)="openDialog(3)">
+            <button *ngIf="isAdmin()" mat-icon-button class="delete-button" (click)="delete(row.orderId)">
               <i class="material-icons">delete</i>
           </button>
           <button mat-icon-button class="take-button" routerLink="/order-details/{{row.orderId}}">

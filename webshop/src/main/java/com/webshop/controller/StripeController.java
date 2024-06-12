@@ -13,24 +13,18 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+
 import com.stripe.Stripe;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Event;
 import com.stripe.model.EventDataObjectDeserializer;
-import com.stripe.model.PaymentIntent;
 import com.stripe.model.StripeObject;
 import com.stripe.model.checkout.Session;
-import com.stripe.model.checkout.SessionCollection;
-import com.stripe.net.ApiResource;
 import com.stripe.net.Webhook;
 import com.stripe.param.checkout.SessionCreateParams;
-import com.stripe.param.checkout.SessionListParams;
 import com.webshop.model.CheckoutPayment;
 import com.webshop.model.dto.payment.CheckoutResponseDto;
-import com.webshop.model.dto.payment.WebhookPaymentDto;
 import com.webshop.service.CustomerOrderService;
 
 @CrossOrigin

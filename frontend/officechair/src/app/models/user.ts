@@ -9,3 +9,5 @@ export class User {
 	contactNumber! : String
 	password!: string;
 }
+
+

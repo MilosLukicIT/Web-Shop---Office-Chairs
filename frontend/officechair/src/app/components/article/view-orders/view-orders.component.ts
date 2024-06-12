@@ -15,8 +15,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ViewOrdersComponent implements OnInit {
 
-  displayedColumns = ['dateOfCreation', 'customer', 'employee', 'totalBill',  'actions'];
-  displayedColumnsDone = ['dateOfCreation', 'customer', 'employee', 'totalBill',  'actions'];
+  displayedColumns = ['dateOfCreation', 'customer', 'employee', 'totalBill', 'paid', 'actions'];
+  displayedColumnsDone = ['dateOfCreation', 'customer', 'employee', 'totalBill', 'paid', 'actions'];
   notDoneOrders = [new CustomerOrderViewDto()];
   orders = [new CustomerOrderViewDto()];
   doneOrder = [new CustomerOrderViewDto()];
@@ -70,9 +70,7 @@ export class ViewOrdersComponent implements OnInit {
   public delete( _id: string) {
     if(confirm("Are you sure to delete this?")) {
       this.orderService.deleteCustomerOrder(_id).subscribe(res =>{
-        var orderName = res.first_name;
-        window.alert("You deleted this persons order: " + orderName);
-        window.location.reload();
+        this.loadData();
 
       }, error => console.log(error));
     }

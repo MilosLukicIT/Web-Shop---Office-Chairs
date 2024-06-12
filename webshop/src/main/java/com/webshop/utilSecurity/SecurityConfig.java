@@ -46,6 +46,7 @@ public class SecurityConfig {
     		   .requestMatchers("/customerOrderArticle/*").authenticated()
     		   .requestMatchers("/customerOrder").authenticated()
     		   .requestMatchers("/customerOrder/*").authenticated()
+    		   .requestMatchers("/payment").authenticated()
     		   .anyRequest().permitAll());
        http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
        return http.build();

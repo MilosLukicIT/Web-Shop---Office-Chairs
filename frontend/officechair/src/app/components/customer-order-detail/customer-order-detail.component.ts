@@ -15,8 +15,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CustomerOrderDetailComponent implements OnInit {
 
-  displayedColumns = ['dateOfCreation', 'customer', 'employee', 'totalBill',  'actions'];
-  displayedColumnsDone = ['dateOfCreation', 'customer', 'employee', 'totalBill',  'actions'];
+  displayedColumns = ['dateOfCreation', 'customer', 'employee', 'totalBill', 'paid', 'actions'];
+  displayedColumnsDone = ['dateOfCreation', 'customer', 'employee', 'totalBill',  'paid','actions'];
   notDoneOrders = [new CustomerOrderViewDto()];
   orders = [new CustomerOrderViewDto()];
   doneOrder = [new CustomerOrderViewDto()];

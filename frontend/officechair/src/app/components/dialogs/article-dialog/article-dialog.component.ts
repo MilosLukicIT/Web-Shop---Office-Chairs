@@ -109,7 +109,6 @@ export class ArticleDialogComponent implements OnInit {
       const filePath = `uploads/${this.selectedFile.name}`;
       try {
         const downloadUrl = await this.firebase.uploadImg(filePath, this.selectedFile);
-        console.log('Path: ' + downloadUrl);
         this.data.imageUrl = downloadUrl;
         window.alert("Image uploaded!!!")
       } catch (error) {
