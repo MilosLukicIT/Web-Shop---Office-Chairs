@@ -1,11 +1,7 @@
 package com.webshop.controller;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.webshop.model.Article;
-import com.webshop.model.ArticleBrand;
 import com.webshop.model.dto.article.ArticleCreationDto;
 import com.webshop.model.dto.article.ArticleUpdateDto;
 import com.webshop.model.dto.article.ArticleViewDto;
-import com.webshop.service.ArticleBrandService;
 import com.webshop.service.ArticleService;
 
 import lombok.RequiredArgsConstructor;
@@ -38,64 +31,33 @@ public class ArticleController {
 
 	
 	private final ArticleService articleService;
-	private final ArticleBrandService articleBrandService;
-	private final ModelMapper mapper;
 
 	
 	@GetMapping
-	public ResponseEntity<?> getAllArticle(@RequestParam(name = "page", defaultValue = "0") int page, 
+	public ResponseEntity<List<ArticleViewDto>> getAllArticle(@RequestParam(name = "page", defaultValue = "0") int page, 
 											@RequestParam(name = "size", defaultValue = "5")int size,
 											@RequestParam(name = "order", defaultValue = "1") int order,
 											@RequestParam(name = "orderByValue", defaultValue = "nameOfArticle") String orderByValue) {
-		
-
-		List<Article> articles = articleService.getAllArticles(page, size, order, orderByValue);
-		
-		if (!articles.isEmpty()) {
-			List<ArticleViewDto> articleDto = articles.stream()
-					.map(article -> mapper.map(article, ArticleViewDto.class))
-					.collect(Collectors.toList());
-			
-			return ResponseEntity.ok(articleDto);
-		} 
-		else return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No entities in the db");
-		
+	
+	
+		return ResponseEntity.ok(articleService.getAllArticles(page, size, order, orderByValue));
 	}
 	
 	@GetMapping("/{articleId}")
-	public ResponseEntity<?> getArticleById(@PathVariable String articleId) {
+	public ResponseEntity<ArticleViewDto> getArticleById(@PathVariable String articleId) {
 		
-		if(articleService.existsById(articleId)) {
-			
-			ArticleViewDto articleDto = mapper.map(articleService.getArticlerById(articleId), ArticleViewDto.class);
-			return ResponseEntity.ok(articleDto);
-		}
-		else
-		{
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity doesn't exist");
-		}
+		return ResponseEntity.ok(articleService.getArticlerById(articleId));
 	}
 	
 	@GetMapping("/nameOfArticle")
-	public ResponseEntity<?> getArticleBrandByName(@RequestParam(name = "name") String articleName) {
-		List<Article> brands = articleService.getArticlesByName(articleName);
+	public ResponseEntity<List<ArticleViewDto>> getArticleBrandByName(@RequestParam(name = "name") String articleName) {
 		
-		if(!brands.isEmpty()) {
-			return ResponseEntity.ok(brands);
-		} else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no articles wtih that name!");
+		return ResponseEntity.ok(articleService.getArticlesByName(articleName));
 	}
 	
 	@GetMapping("/articleBrand/{brandId}")
 	public ResponseEntity<?> getArticleBrandByBrand(@PathVariable String brandId) {
-		Optional<ArticleBrand> articleBrand =  articleBrandService.getArticleBrandById(brandId);
-		if(!articleBrand.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Brand doesn't exist!");
-		}
-		List<Article> articles = articleService.getArticlesByBrand(articleBrand.get());
-		
-		if(!articles.isEmpty()) {
-			return ResponseEntity.ok(articles);
-		} else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no articles of that brand!");
+		return ResponseEntity.ok(articleService.getArticlesByBrand(brandId));
 	}
 	
 	
@@ -103,41 +65,22 @@ public class ArticleController {
 	@PostMapping
 	public ResponseEntity<?> createArticle(@RequestBody ArticleCreationDto article){
 		
-		this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-		
-		Article articleModel = mapper.map(article, Article.class);
-		
-		ArticleViewDto createdArticleDto = mapper.map(articleService.saveArticle(articleModel), ArticleViewDto.class);
-		return ResponseEntity.status(HttpStatus.CREATED).body(createdArticleDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(articleService.saveArticle(article));
 	}
 	
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'WORKER')")
 	@DeleteMapping("/{articleId}")
-	public ResponseEntity<?> deleteArticle(@PathVariable String articleId) {
+	public ResponseEntity<String> deleteArticle(@PathVariable String articleId) {
 		
-		if(articleService.existsById(articleId)) {
-			articleService.deleteById(articleId);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Entity has been deleted"); 
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity doesn't exist");
-		}
+		articleService.deleteById(articleId);
+		return ResponseEntity.ok("Article has been deleted!");
 	}
 	
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'WORKER')")
 	@PutMapping
-	public ResponseEntity<?> updateArticle(@RequestBody ArticleUpdateDto article){
-		
-		if (!articleService.existsById(article.getArticleId())) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity doesn't exist");
-		} else {
-			
-			this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-			Article updateArticle = mapper.map(articleService.getArticlerById(article.getArticleId()), Article.class);
-			mapper.map(article, updateArticle);
-			articleService.saveArticle(updateArticle);
-			
-			return ResponseEntity.ok(updateArticle);
-		}
+	public ResponseEntity<ArticleViewDto> updateArticle(@RequestBody ArticleUpdateDto article){
+	
+		return ResponseEntity.ok(articleService.updateArticle(article));
 		
 	}
 }

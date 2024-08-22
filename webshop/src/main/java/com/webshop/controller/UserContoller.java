@@ -106,7 +106,6 @@ public class UserContoller {
 			
 			this.mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 			User updateUser = mapper.map(userService.getUserById(user.getUserId()), User.class);
-//			mapper.map(user, updateUser);
 			
 			updateUser.setName(user.getName());
 			updateUser.setAdress(user.getAdress());
